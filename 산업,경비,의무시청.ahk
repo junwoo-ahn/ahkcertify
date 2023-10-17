@@ -4,20 +4,21 @@ global vSanViewID := "산업안전시청.txt"
 global vKyeongViewID := "경비직무시청.txt"
 global vMustViewID := "의무교육시청.txt"
 
-Gui, Add, Text, x200 y20 w180 h30, 산업안전시청.txt
-Gui, Add, Button, x10 y10 w180 h30, 산업안전시청
-Gui, Add, Text, x200 y60 w180 h30, 경비직무시청.txt
-Gui, Add, Button, x10 y50 w180 h30, 경비직무시청
-Gui, Add, Text, x200 y100 w180 h30, 의무교육시청.txt
-Gui, Add, Button, x10 y90 w180 h30, 의무교육시청
-Gui, Show, x1000 y400 w300 h130, PC로 보기
+Gui, font, s200
+Gui, Add, Button, x10 y10 w560 h330, 산업
+Gui, Add, Button, x580 y10 w560 h330, 경비
+Gui, Add, Button, x10 y350 w560 h330, 의무
+Gui, Add, Button, x580 y350 w560 h330, 직무
+Gui, font, s20
+Gui, Add, Text, x10 y690 w1150 h30, 산업 : 산업안전.txt   경비 : 경비직무.txt   의무 : 의무교육.txt   직무 : 직무교육.txt
+Gui, Show, x360 y160 w1150 h750, PC로 보기
 return
 
 testText(imgFile)
 {
 	CoordMode pixel, screen
 
-	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 ./image/%imgFile%
+	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 C:\Users\user\Downloads\image\%imgFile%
 
 	CoordMode mouse, screen
 
@@ -832,7 +833,7 @@ watchMustLecture(lecture)
 }
 
 ; 산업안전 시청
-Button산업안전시청:
+Button산업:
 {
 	watchLecture("산업안전")
 
@@ -841,7 +842,7 @@ Button산업안전시청:
 }
 
 ; 경비직무 시청
-Button경비직무시청:
+Button경비:
 {
 
 	watchLecture("경비직무")
@@ -851,7 +852,7 @@ Button경비직무시청:
 }
 
 ; 의무교육 시청
-Button의무교육시청:
+Button의무:
 {
 
 	watchMustLecture("의무교육")
