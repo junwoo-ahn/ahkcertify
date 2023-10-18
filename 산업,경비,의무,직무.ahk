@@ -1,11 +1,15 @@
 ﻿#Include <FindText>
 
-global vSanViewID := "산업안전시청.txt"
-global vKyeongViewID := "경비직무시청.txt"
-global vMustViewID := "의무교육시청.txt"
+global vSanViewID := "산업.txt"
+global vKyeongViewID := "경비.txt"
+global vMustViewID := "의무.txt"
+global vJikmuViewID := "직무.txt"
+global dirPath := "C:\Users\user\Downloads\"
+global dirImgPath := "C:\Users\user\Downloads\image\"
 global vRefreshDelay := 1000
 
 title = PC로 보기
+FileEncoding, UTF-8
 
 Gui, 1:font, s200
 Gui, 1:Add, Button, x10 y10 w560 h330, 산업
@@ -13,8 +17,8 @@ Gui, 1:Add, Button, x580 y10 w560 h330, 경비
 Gui, 1:Add, Button, x10 y350 w560 h330, 의무
 Gui, 1:Add, Button, x580 y350 w560 h330, 직무
 Gui, 1:font, s20
-Gui, 1:Add, Text, x10 y690 w1150 h30, 산업 : 산업안전.txt   경비 : 경비직무.txt   의무 : 의무교육.txt   직무 : 직무교육.txt
-Gui, 1:Add, ListBox, x10 y730 w80 h20 vDelayLBox Choose1, 1|2|3|4|5|6
+Gui, 1:Add, Text, x10 y690 w1150 h30, 산업 : 산업.txt   경비 : 경비.txt   의무 : 의무.txt   직무 : 직무.txt
+Gui, 1:Add, ListBox, x10 y730 w80 h20 vDelayLBox Choose1, 0|0.5|1|1.5|2|2.5|3|3.5|4|4.5|5|5.5|6
 Gui, 1:Add, Text, x100 y730 w1000 h30, 초 딜레이 추가
 Gui, 1:Show, x360 y160 w1150 h780, % title
 
@@ -28,9 +32,11 @@ return
 
 testText(imgFile)
 {
+	MouseMove, 10, 120
+
 	CoordMode pixel, screen
 
-	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 C:\Users\user\Downloads\image\%imgFile%
+	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 %dirImgPath%%imgFile%
 
 	CoordMode mouse, screen
 
@@ -49,11 +55,13 @@ testText(imgFile)
 
 clickOnemoreImg(imgFile)
 {
-	sleep vRefreshDelay
+	MouseMove, 10, 120
+
+	sleep vRefreshDelay+100
 
 	CoordMode pixel, screen
 
-	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 ./image/%imgFile%
+	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 %dirImgPath%%imgFile%
 
 	CoordMode mouse, screen
 
@@ -74,11 +82,13 @@ clickOnemoreImg(imgFile)
 
 clickImg(imgFile)
 {
-	sleep vRefreshDelay
+	MouseMove, 10, 120
+
+	sleep vRefreshDelay+100
 
 	CoordMode pixel, screen
 
-	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 ./image/%imgFile%
+	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 %dirImgPath%%imgFile%
 
 	CoordMode mouse, screen
 
@@ -98,11 +108,13 @@ clickImg(imgFile)
 
 findImg(imgFile, isClick)
 {
-	sleep vRefreshDelay
+	MouseMove, 10, 120
+
+	sleep vRefreshDelay+100
 
 	CoordMode pixel, screen
 
-	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 ./image/%imgFile%
+	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 %dirImgPath%%imgFile%
 
 	CoordMode mouse, screen
 
@@ -311,7 +323,7 @@ ImmGetDefaultIMEWnd(hWnd)
 
 endapp(err)
 {
-	FileAppend, [%A_Mon%/%A_MDay% %A_Hour%:%A_Min%:%A_Sec%][%err%] end`n, log.txt
+	FileAppend, [%A_Mon%/%A_MDay% %A_Hour%:%A_Min%:%A_Sec%][%err%] end`n, % dirPath "log.txt"
 	SoundPlay, *-1
 	MsgBox, %err%
 	ExitApp
@@ -319,7 +331,7 @@ endapp(err)
 
 logapp(err)
 {
-	FileAppend, [%A_Mon%/%A_MDay% %A_Hour%:%A_Min%:%A_Sec%][%err%] log`n, log.txt
+	FileAppend, [%A_Mon%/%A_MDay% %A_Hour%:%A_Min%:%A_Sec%][%err%] end`n, % dirPath "log.txt"
 }
 
 waitLogo()
@@ -536,6 +548,12 @@ whaleInit()
 		refreshWhale()
 		findImg("웨일확인.png", true)
 		sleep 2000
+		if(ok:=findImg("웨일로그인버튼(세션종료).png", true))
+		{
+			Sleep 2000
+			findImg("웨일아이콘(세션종료).png", true)
+		}
+		sleep 2000
 		if(ok:=findImg("kedu로그인.png", false))
 			break
 	}
@@ -664,9 +682,9 @@ watchLecture(lecture)
 
 	; 산업안전, 경비직무 파일명 읽기
 	if (lecture = "산업안전")
-		FileRead, varfile, % vSanViewID
+		FileRead, varfile, %dirPath%%vSanViewID%
 	else if (lecture = "경비직무")
-		FileRead, varfile, % vKyeongViewID
+		FileRead, varfile, %dirPath%%vSanViewID%
 
 	; 아이디.txt 파일 한줄씩 읽기
 	Loop, Parse, varfile, `n
@@ -753,7 +771,7 @@ watchLecture(lecture)
 		sleep 1000
 
   		; 산업안전보건 과정 찾기, 경비직무 찾기
-  		Loop, 30
+  		Loop, 20
   		{
 			if (lecture = "산업안전")
 			{
@@ -770,7 +788,7 @@ watchLecture(lecture)
 					MouseClick WheelDown,,,1
 			}
 
-			sleep 1000
+			sleep 500
 
   		}
 
@@ -989,7 +1007,7 @@ watchMustLecture(lecture)
 
 	; 산업안전, 경비직무 파일명 읽기
 	if (lecture = "의무교육")
-		FileRead, varfile, % vMustViewID
+		FileRead, varfile, %dirPath%%vMustViewID%
 
 	if(!varfile)
 		return
@@ -1137,12 +1155,8 @@ watchMustLecture(lecture)
 ; 강의 시청 모듈
 watchJikmuLecture(lecture)
 {
-	MsgBox, % lecture
-	endapp("직무종료")
-
 	SetKeyDelay, 300
 
-	FileEncoding, UTF-8
 	checkIME()
 
 	sleep 1000
@@ -1150,7 +1164,7 @@ watchJikmuLecture(lecture)
 	CoordMode, Mouse, Screen
 
 	; 아이디 읽기
-	FileRead, varfile, % vJikmuViewID
+	FileRead, varfile, %dirPath%%vJikmuViewID%
 
 	idinfo := []
 	; 아이디.txt 파일 읽기, 아이디, 전화번호 구분, idinfo[1] = 이름, idinfo[2] = 아이디, idinfo[3] = 휴대폰번호
@@ -1296,9 +1310,6 @@ Button직무:
 
 2Button1강:
 {
-	MsgBox, 1강 클릭
-	endapp("종료")
-
 	sleep 1000
 	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu_1 ; 미뮤 실행
 	sleep 10000
@@ -1325,9 +1336,6 @@ Button직무:
 
 2Button2강:
 {
-	MsgBox, 2강 클릭
-	endapp("종료")
-
 	sleep 1000
 	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu_1 ; 미뮤 실행
 	sleep 10000
@@ -1354,9 +1362,6 @@ Button직무:
 
 2Button3강:
 {
-	MsgBox, 3강 클릭
-	endapp("종료")
-
 	sleep 1000
 	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu_1 ; 미뮤 실행
 	sleep 10000
@@ -1384,9 +1389,6 @@ Button직무:
 
 2Button4강:
 {
-	MsgBox, 4강 클릭
-	endapp("종료")
-
 	sleep 1000
 	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu_1 ; 미뮤 실행
 	sleep 10000
