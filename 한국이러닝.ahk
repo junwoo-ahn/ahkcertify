@@ -6,6 +6,7 @@ global vMustViewID := "의무.txt"
 global vJikmuViewID := "직무.txt"
 global dirPath := "C:\Users\user\Downloads\"
 global dirImgPath := "C:\Users\user\Downloads\image\"
+global lecName := ["직장내성희롱.png", "직장내장애인.png", "직장내괴롭힘.png", "개인정보보호.png", "퇴직연금.png", "급여제공지침.png", "아동학대.png", "노인학대.png", "장애인학대.png"]
 global vRefreshDelay := 1000
 
 title = PC로 보기
@@ -996,7 +997,6 @@ watchLecture(lecture)
 ; 의무교육 시청
 watchMustLecture(lecture)
 {
-	lecName := ["직장내성희롱.png", "직장내장애인.png", "직장내괴롭힘.png", "개인정보보호.png", "퇴직연금.png", "급여제공지침.png"]
 	idinfo := []
 	varfile := 0
 	checkIME()
@@ -1152,7 +1152,7 @@ watchMustLecture(lecture)
 
 }
 
-; 강의 시청 모듈
+; 직무교육 강의 시청 모듈
 watchJikmuLecture(lecture)
 {
 	SetKeyDelay, 300
