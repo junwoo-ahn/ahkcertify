@@ -7,9 +7,10 @@ global vJikmuViewID := "직무.txt"
 global dirPath := "C:\Users\user\Downloads\"
 global dirImgPath := "C:\Users\user\Downloads\image\"
 global lecName := ["직장내성희롱.png", "직장내장애인.png", "직장내괴롭힘.png", "개인정보보호.png", "퇴직연금.png", "급여제공지침.png", "아동학대.png", "노인학대.png", "장애인학대.png"]
+; 휴대폰 디바이스 폰 모델명
+global deviceModel := ["SM-S908N", "SM-S901N", "SM-S906N", "SM-G977N", "SM-G973N", "SM-G975N", "SM-G970N", "SM-N971N", "SM-N976N", "SM-N970N", "SM-G965N", "SM-G965N", "SM-G960N", "SM-G965N", "SM-A908N", "SM-A805N", "SM-G9880", "SM-F721N", "SM-F700N", "SM-F711N", "SM-F731N", "SM-F946N", "SM-F936N", "SM-F926N", "SM-A245N", "SM-A346N", "SM-A546S", "SM-A536N", "SM-A136S"]
 global vRefreshDelay := 1000
 
-title = PC로 보기
 FileEncoding, UTF-8
 
 Gui, 1:font, s200
@@ -18,10 +19,12 @@ Gui, 1:Add, Button, x580 y10 w560 h330, 경비
 Gui, 1:Add, Button, x10 y350 w560 h330, 의무
 Gui, 1:Add, Button, x580 y350 w560 h330, 직무
 Gui, 1:font, s20
-Gui, 1:Add, Text, x10 y690 w1150 h30, 산업 : 산업.txt   경비 : 경비.txt   의무 : 의무.txt   직무 : 직무.txt
+Gui, 1:Add, Button, x1000 y690 w130 h40, 미뮤 패치
+Gui, 1:Add, Text, x970 y740 w200 h40, ver 1021.12
+Gui, 1:Add, Text, x10 y690 w900 h30, 산업 : 산업.txt   경비 : 경비.txt   의무 : 의무.txt   직무 : 직무.txt
 Gui, 1:Add, ListBox, x10 y730 w80 h20 vDelayLBox Choose5, 0|0.5|1|1.5|2|2.5|3|3.5|4|4.5|5|5.5|6
-Gui, 1:Add, Text, x100 y730 w1000 h30, 초 딜레이 추가
-Gui, 1:Show, x360 y160 w1150 h780, % title
+Gui, 1:Add, Text, x100 y730 w300 h30, 초 딜레이 추가
+Gui, 1:Show, x360 y160 w1150 h780, PC로 보기
 
 Gui, 2:font, s200
 Gui, 2:Add, Button, x10 y10 w560 h330, 1강
@@ -84,8 +87,6 @@ clickOnemoreImg(imgFile)
 clickImg(imgFile)
 {
 	MouseMove, 10, 120
-
-	sleep vRefreshDelay+100
 
 	CoordMode pixel, screen
 
@@ -547,12 +548,26 @@ whaleInit()
 	Loop, 5
 	{
 		refreshWhale()
-		findImg("웨일확인.png", true)
-		sleep 2000
-		if(ok:=findImg("웨일로그인버튼(세션종료).png", true))
+		if(ok:=findImg("웨일세션종료.png", false))
 		{
-			Sleep 2000
-			findImg("웨일아이콘(세션종료).png", true)
+			sleep 1000
+			findImg("웨일확인.png", true)
+			sleep 3000
+			MouseClick, Left, 281, 875
+			sleep 2000
+			Send, kedu.kr
+			sleep 1000
+			send, {Enter}
+		}
+		else
+		{
+			findImg("웨일확인.png", true)
+			sleep 2000
+			if(ok:=findImg("웨일로그인버튼(세션종료).png", true))
+			{
+				Sleep 2000
+				findImg("웨일아이콘(세션종료).png", true)
+			}
 		}
 		sleep 2000
 		if(ok:=findImg("kedu로그인.png", false))
@@ -690,9 +705,6 @@ watchLecture(lecture)
 	; 아이디.txt 파일 한줄씩 읽기
 	Loop, Parse, varfile, `n
 	{
-
-		;idlist[A_Index] := A_LoopField
-
  		idinfo := []
  		; 아이디.txt 파일 읽기, 아이디, 전화번호 구분, idinfo[1] = ID, idinfo[2] = 가운데 전화번호, idinfo[3] = 세번째 전화번호
  		Loop, Parse, A_LoopField, " "
@@ -1032,9 +1044,9 @@ watchMustLecture(lecture)
 		sleep 500
 
 		if (A_Index = 1)
-			Send, qwer1234{!} ; 로그인 비번 qwer1234{!}
+			Send, 1234 ; 로그인 비번 qwer1234{!}
 		else
-			Send, 1234 ; 로그인 비번 1234
+			Send, qwer1234{!} ; 로그인 비번 1234
 		sleep 500
 		Send, {Enter} ; 로그인 버튼 클릭
 		Sleep 1000
@@ -1083,7 +1095,7 @@ watchMustLecture(lecture)
 		indexLec := A_Index
 
 		; 과정 찾기
-		Loop, % lecName.Length()
+		Loop, 20
 		{
 			if (ok:=findImg(lecName[indexLec], true))
 				break
@@ -1311,7 +1323,7 @@ Button직무:
 2Button1강:
 {
 	sleep 1000
-	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu_1 ; 미뮤 실행
+	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
 	sleep 10000
 
 	Loop, 20
@@ -1337,7 +1349,7 @@ Button직무:
 2Button2강:
 {
 	sleep 1000
-	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu_1 ; 미뮤 실행
+	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
 	sleep 10000
 
 	Loop, 20
@@ -1363,7 +1375,7 @@ Button직무:
 2Button3강:
 {
 	sleep 1000
-	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu_1 ; 미뮤 실행
+	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
 	sleep 10000
 
 	Loop, 20
@@ -1390,7 +1402,7 @@ Button직무:
 2Button4강:
 {
 	sleep 1000
-	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu_1 ; 미뮤 실행
+	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
 	sleep 10000
 
 	Loop, 20
