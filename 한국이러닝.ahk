@@ -1,5 +1,6 @@
 ﻿#Include <FindText>
 
+global vPatchNum := "1022.21"
 global vSanViewID := "산업.txt"
 global vKyeongViewID := "경비.txt"
 global vMustViewID := "의무.txt"
@@ -20,7 +21,7 @@ Gui, 1:Add, Button, x10 y350 w560 h330, 의무
 Gui, 1:Add, Button, x580 y350 w560 h330, 직무
 Gui, 1:font, s20
 Gui, 1:Add, Button, x1000 y690 w130 h40, 미뮤 패치
-Gui, 1:Add, Text, x970 y740 w200 h40, ver 1021.12
+Gui, 1:Add, Text, x970 y740 w200 h40, % vPatchNum
 Gui, 1:Add, Text, x10 y690 w900 h30, 산업 : 산업.txt   경비 : 경비.txt   의무 : 의무.txt   직무 : 직무.txt
 Gui, 1:Add, ListBox, x10 y730 w80 h20 vDelayLBox Choose5, 0|0.5|1|1.5|2|2.5|3|3.5|4|4.5|5|5.5|6
 Gui, 1:Add, Text, x100 y730 w300 h30, 초 딜레이 추가
