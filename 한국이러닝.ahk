@@ -1,6 +1,6 @@
 ﻿#Include <FindText>
 
-global vPatchNum := "1022.21"
+global vPatchNum := "1023.10"
 global vSanViewID := "산업.txt"
 global vKyeongViewID := "경비.txt"
 global vMustViewID := "의무.txt"
@@ -424,23 +424,27 @@ setMemu(phoneNum)
 ; MOTP 설정
 setMOTP(name, phoneNum)
 {
-	clickImg("미뮤MOTP아이콘.png")
+	;clickImg("미뮤MOTP아이콘.png")
+	clickImg("미뮤MOTP아이콘.bmp")
 	sleep 5000
 
 	; MOTP 초기화 시작
 	; MOTP 등록 초기화 버튼
 
-	if(ok:=findImg("MOTP등록정보수정.png", true))
+	;if(ok:=findImg("MOTP등록정보수정.png", true))
+	if(ok:=findImg("MOTP등록정보수정.bmp", true))
 	{
 		; 등록 초기화 시작
 		sleep 500
 
 		; 등록 초기화 하시겠습니까? 확인 클릭 (작은 확인)
-		clickImg("MOTP작은확인.png")
+		;clickImg("MOTP작은확인.png")
+		clickImg("MOTP작은확인.bmp")
 		sleep 500
 
 		; 초기화 되었습니다. 확인 클릭 (작은 확인)
-		clickImg("MOTP작은확인3.png")
+		;clickImg("MOTP작은확인3.png")
+		clickImg("MOTP작은확인3.bmp")
 		sleep 500
 	}
 	else
@@ -449,15 +453,18 @@ setMOTP(name, phoneNum)
 	sleep 500
 
 	; 개인정보수집 동의
-	clickImg("MOTP동의.png")
+	;clickImg("MOTP동의.png")
+	clickImg("MOTP동의.bmp")
 	sleep 500
 
 	; MOTP 이용 주의사항
-	clickImg("MOTP동의2.png")
+	;clickImg("MOTP동의2.png")
+	clickImg("MOTP동의2.bmp")
 	sleep 500
 
 	; 개인정보수집 동의함 라디오 버튼
-	clickImg("MOTP동의함.png")
+	;clickImg("MOTP동의함.png")
+	clickImg("MOTP동의함.bmp")
 	sleep 500
 
 	Loop, 10
@@ -511,15 +518,18 @@ setMOTP(name, phoneNum)
 	sleep 700
 
 	; MOTP 입력 확인 (파랑색 확인 버튼)
-	clickImg("MOTP파랑확인.png")
+	;clickImg("MOTP파랑확인.png")
+	clickImg("MOTP파랑확인.bmp")
 	sleep 1000
 
 	; 승인 요청하시겠습니까? (작은 확인 버튼)
-	clickImg("MOTP작은확인2.png")
+	;clickImg("MOTP작은확인2.png")
+	clickImg("MOTP작은확인2.bmp")
 	sleep 1000
 
 	; 승인이 완료되었습니다. 확인 클릭 (작은 확인)
-	clickImg("MOTP작은확인3.png")
+	;clickImg("MOTP작은확인3.png")
+	clickImg("MOTP작은확인3.bmp")
 	sleep 1000
 
 }
@@ -549,7 +559,7 @@ whaleInit()
 	Loop, 5
 	{
 		refreshWhale()
-		if(ok:=findImg("웨일세션종료.png", false))
+		if(ok:=findImg("웨일세션종료메시지.png", false))
 		{
 			sleep 1000
 			findImg("웨일확인.png", true)
@@ -1211,7 +1221,8 @@ watchJikmuLecture(lecture)
 	sleep 1000
 
 	; 웨일 어플 실행
-	clickImg("미뮤웨일아이콘.png")
+	;clickImg("미뮤웨일아이콘.png")
+	clickImg("미뮤웨일아이콘.bmp")
 	sleep 5000
 
 	; kedu 로그인 버튼 찾기
@@ -1323,13 +1334,16 @@ Button직무:
 
 2Button1강:
 {
+	Gui, Minimize
+
 	sleep 1000
 	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
 	sleep 10000
 
 	Loop, 20
 	{
-		if(ok:=findImg("미뮤웨일아이콘.png", false))
+		;if(ok:=findImg("미뮤웨일아이콘.png", false))
+		if(ok:=findImg("미뮤웨일아이콘.bmp", false))
 			break
 		sleep 1000
 	}
@@ -1349,13 +1363,16 @@ Button직무:
 
 2Button2강:
 {
+	Gui, Minimize
+
 	sleep 1000
 	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
 	sleep 10000
 
 	Loop, 20
 	{
-		if(ok:=findImg("미뮤웨일아이콘.png", false))
+		if(ok:=findImg("미뮤웨일아이콘.bmp", false))
+		;if(ok:=findImg("미뮤웨일아이콘.png", false))
 			break
 		sleep 1000
 	}
@@ -1375,13 +1392,16 @@ Button직무:
 
 2Button3강:
 {
+	Gui, Minimize
+
 	sleep 1000
 	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
 	sleep 10000
 
 	Loop, 20
 	{
-		if(ok:=findImg("미뮤웨일아이콘.png", false))
+		if(ok:=findImg("미뮤웨일아이콘.bmp", false))
+		;if(ok:=findImg("미뮤웨일아이콘.png", false))
 			break
 		sleep 1000
 	}
@@ -1402,13 +1422,16 @@ Button직무:
 
 2Button4강:
 {
+	Gui, Minimize
+
 	sleep 1000
 	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
 	sleep 10000
 
 	Loop, 20
 	{
-		if(ok:=findImg("미뮤웨일아이콘.png", false))
+		if(ok:=findImg("미뮤웨일아이콘.bmp", false))
+		;if(ok:=findImg("미뮤웨일아이콘.png", false))
 			break
 		sleep 1000
 	}
