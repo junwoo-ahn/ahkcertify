@@ -1,6 +1,6 @@
 ﻿#Include <FindText>
 
-global vPatchNum := "1023.10"
+global vPatchNum := "1026.15"
 global vSanViewID := "산업.txt"
 global vKyeongViewID := "경비.txt"
 global vMustViewID := "의무.txt"
@@ -20,9 +20,8 @@ Gui, 1:Add, Button, x580 y10 w560 h330, 경비
 Gui, 1:Add, Button, x10 y350 w560 h330, 의무
 Gui, 1:Add, Button, x580 y350 w560 h330, 직무
 Gui, 1:font, s20
-Gui, 1:Add, Button, x1000 y690 w130 h40, 미뮤 패치
-Gui, 1:Add, Text, x970 y740 w200 h40, % vPatchNum
-Gui, 1:Add, Text, x10 y690 w900 h30, 산업 : 산업.txt   경비 : 경비.txt   의무 : 의무.txt   직무 : 직무.txt
+Gui, 1:Add, Button, x750 y690 w390 h80 gPatchBtn, 미뮤패치 ver:%vPatchNum%
+Gui, 1:Add, Text, x10 y690 w700 h30, 산업 : 산업.txt   경비 : 경비.txt   의무 : 의무.txt   직무 : 직무.txt
 Gui, 1:Add, ListBox, x10 y730 w80 h20 vDelayLBox Choose5, 0|0.5|1|1.5|2|2.5|3|3.5|4|4.5|5|5.5|6
 Gui, 1:Add, Text, x100 y730 w300 h30, 초 딜레이 추가
 Gui, 1:Show, x360 y160 w1150 h780, PC로 보기
@@ -183,22 +182,28 @@ clickRBtn(index)
 clickTestBtn(index)
 {
 	; 1. o -> 수정
-	Text1o:="|<>*176$31.00000000000000000000000000300002U0000E0S0080NU0408E020480102400U1a00EUS00000000000000000000000000000000000004"
+	;Text1o:="|<>*176$31.00000000000000000000000000300002U0000E0S0080NU0408E020480102400U1a00EUS00000000000000000000000000000000000004"
 
 	; 2. x -> 수정
-	Text2x:="|<>*165$31.000000000000000000000000001k000140000208U0102U0101U0100E0100Q0100+00y88U0000000000000000000000000000000000004"
+	;Text2x:="|<>*165$31.000000000000000000000000001k000140000208U0102U0101U0100E0100Q0100+00y88U0000000000000000000000000000000000004"
 
 	; 1번 -> 수정
-	Text1:="|<>*176$33.0000003s0001zk000w7U0060A001U0k0kA060+300M0EM0302300M0EM0302300M0EA06021U0k0E60A000w7U001zk0003s000000004"
+	;Text1:="|<>*176$33.0000003s0001zk000w7U0060A001U0k0kA060+300M0EM0302300M0EM0302300M0EA06021U0k0E60A000w7U001zk0003s000000004"
 
 	; 2번 -> 수정
-	Text2:="|<>*171$33.0000003s0001zk000w7U0060A001U0k1kA060F300M08M0301300M0EM0304300M10A060E1U0k3s60A000w7U001zk0003s000000004"
+	;Text2:="|<>*171$33.0000003s0001zk000w7U0060A001U0k1kA060F300M08M0301300M0EM0304300M10A060E1U0k3s60A000w7U001zk0003s000000004"
 
 	; 3번 -> 수정
-	Text3:="|<>*168$33.0000003s0001zk000Q700060A001U0k3kA0601300M08M0301300M1kM0301300M08A06011U0k3k60A000Q70001zk0003s000000004"
+	;Text3:="|<>*168$33.0000003s0001zk000Q700060A001U0k3kA0601300M08M0301300M1kM0301300M08A06011U0k3k60A000Q70001zk0003s000000004"
 
 	; 4번 -> 수정
-	Text4:="|<>*175$33.0000003s0001zk000w7U0060A001U0k0MA0607300M0cM0309300M28M030F300M7wA06011U0k0860A000w7U001zk0003s000000004"
+	;Text4:="|<>*175$33.0000003s0001zk000w7U0060A001U0k0MA0607300M0cM0309300M28M030F300M7wA06011U0k0860A000w7U001zk0003s000000004"
+
+	Text1:="|<>*207$17.000000000000600w00M00k01U0300600A00Mk00000000000000001" ; 1번
+	Text2:="|<>*151$17.000000000000C00W00400800U0200800U01wE00000000000000001" ; 2번
+	Text3:="|<>*149$17.000000000000000w00400800E0700100200403kU00000000000001" ; 3번
+	Text4:="|<>*177$17.000000000000000600Q00c02E08U0F01z004008U00000000000001" ; 4번
+
 
 	if (ok:=FindText(X, Y, 566-150000, 658-150000, 566+150000, 658+150000, 0, 0, Text1o))
 	{
@@ -207,7 +212,7 @@ clickTestBtn(index)
 
 		if (rbtn = 1) ; O 체크 버튼 클릭
 		{
-			if (ok:=FindText(X, Y, 566-150000, 658-150000, 566+150000, 658+150000, 0, 0, Text1o))
+			if (ok:=FindText(X, Y, 566-150000, 658-150000, 566+150000, 658+150000, 0, 0, Text1))
 			{
 				if !ok[index].x
 					FindText().Click(ok[1].x, ok[1].y, "L")
@@ -219,7 +224,7 @@ clickTestBtn(index)
 		}
 		else ; X 체크 버튼 클릭
 		{
-			if (ok:=FindText(X, Y, 565-150000, 692-150000, 565+150000, 692+150000, 0, 0, Text2x))
+			if (ok:=FindText(X, Y, 565-150000, 692-150000, 565+150000, 692+150000, 0, 0, Text2))
 			{
 				if !ok[index].x
 					FindText().Click(ok[1].x, ok[1].y, "L")
@@ -229,8 +234,6 @@ clickTestBtn(index)
 			else
 				endapp("2.X 버튼 못찾음")
 		}
-
-
 	}
 	else
 	{
@@ -1173,6 +1176,8 @@ watchMustLecture(lecture)
 		sleep 3000
 	}
 
+	logout()
+
 }
 
 ; 직무교육 강의 시청 모듈
@@ -1349,9 +1354,9 @@ Button직무:
 	}
 
 	sleep 1000
-	WinActivate, (memu1)
+	WinActivate, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기)
 	sleep 1000
-	WinMove, (memu1),, 0,0,,
+	WinMove, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기),, 0,0,,
 	sleep 1000
 
 	memuInit()
@@ -1378,9 +1383,9 @@ Button직무:
 	}
 
 	sleep 1000
-	WinActivate, (memu1)
+	WinActivate, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기)
 	sleep 1000
-	WinMove, (memu1),, 0,0,,
+	WinMove, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기),, 0,0,,
 	sleep 1000
 
 	memuInit()
@@ -1407,9 +1412,9 @@ Button직무:
 	}
 
 	sleep 1000
-	WinActivate, (memu1)
+	WinActivate, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기)
 	sleep 1000
-	WinMove, (memu1),, 0,0,,
+	WinMove, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기),, 0,0,,
 	sleep 1000
 
 	memuInit()
@@ -1437,9 +1442,9 @@ Button직무:
 	}
 
 	sleep 1000
-	WinActivate, (memu1)
+	WinActivate, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기)
 	sleep 1000
-	WinMove, (memu1),, 0,0,,
+	WinMove, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기),, 0,0,,
 	sleep 1000
 
 	memuInit()
@@ -1448,6 +1453,56 @@ Button직무:
 
 	endapp("전체 완료\n에그를 끄세요!")
 
+}
+
+PatchBtn:
+{
+	sleep 2000
+	Run, "C:\Program Files\Microvirt\MEmu\MEmuConsole.exe" ; 미뮤 멀티 실행
+	sleep 5000
+
+	loop, 5
+	{
+		if(ok:=findImg("미뮤휴지통.bmp", true))
+		{
+			sleep 2000
+			clickImg("미뮤휴지통삭제.bmp")
+			sleep 2000
+		}
+		else
+			break
+	}
+
+	sleep 2000
+	clickImg("미뮤불러오기.bmp")
+	sleep 2000
+	clickImg("미뮤싱글가져오기.bmp")
+	sleep 2000
+
+	send, !{d}
+	sleep 500
+	send, C:\Users\user\Downloads
+	sleep 500
+	send, {Enter}
+	sleep 500
+	send, !{n}
+	send, memu1.ova
+	sleep 500
+	send, {Enter}
+	sleep 10000
+
+	Loop, 30
+	{
+		if(ok:=findImg("미뮤멀티실행버튼.bmp", false))
+			break
+		sleep 1000
+	}
+
+	sleep 1000
+	WinClose, 미뮤 멀티
+	sleep 1000
+
+	MsgBox, 패치 완료
 }
 
 
