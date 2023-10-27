@@ -12,6 +12,8 @@ global folderName := ["x와mz", "기업의성공", "디지털융합", "비대면
 global CLICKPOINT := 20 ; default 20 평가 이미지들은 크기가 작아서 20포인트로 설정하면 잘못된 곳에 클릭이 됨.
 global questionList := ["안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음"]
 global answerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
+global lecQuestion := []
+global lecAnswer := []
 global ansIndex := 1
 global testType := false ; false : 중간평가, true : 최종평가
 global Text1:="|<>*207$17.000000000000600w00M00k01U0300600A00Mk00000000000000001" ; 1번
@@ -27,6 +29,19 @@ Gui, Add, Text, x200 y60 w180 h30, 최종평가.txt
 Gui, Add, Button, x10 y50 w180 h30, 최종평가테스트
 Gui, Show, x1000 y400 w300 h110, PC로 보기
 return
+
+compareQuestion(qSource, qTarget, len)
+{
+	Loop, % len
+	{
+		if(InStr(lecQuestion[A_Index], Clipboard))
+		{
+			return lecAnswer[A_Index]
+		}
+	}
+
+	return false
+}
 
 findQuestion(imgFile)
 {
@@ -223,66 +238,6 @@ qaListInit()
 	questionList := ["안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음"]
 	answerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
 	ansIndex := 1
-}
-
-findTestStart(testFolder, index, answer)
-{
-	Loop, ./image/%testFolder%/*.png, 0, 0 ; 해당 폴더에 파일이 있는대로 루프
-	{
-		; 중간평가는 한 화면에 모든 문제가 보임.  만약 안 보일 시 스크롤 해야함.
-		if(questionList[A_Index] = "했음") ; 해당 문제를 푼 적이 있을 경우
-			continue
-
-		str := % testFolder "/q" A_Index ".png"
-		if(ok:=findImg(str, false)) ; 문제 검색
-		{
-			MsgBox, 정답 찾았음
-
-			questionList[A_Index] := "했음"
-			ans := % testFolder "/a" A_Index ".png"
-			changeClickPoint(10)
-			clickImg(ans)
-			changeClickPoint(20)
-			sleep 1000
-
-			if(answer = "오답") ; 정답을 틀려야 할 경우
-			{
-				MsgBox,오답
-				Random, rbtn, 1, 4
-				logapp(rbtn)
-				if (rbtn = 1) ; 1번 버튼 클릭
-				{
-					if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text1))
-							FindText().Click(ok[index].x, ok[index].y, "L")
-					else
-						logapp("1번 버튼을 못찾음")
-				}
-				else if (rbtn = 2) ; 2번 버튼 클릭
-				{
-					if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text2))
-							FindText().Click(ok[index].x, ok[index].y, "L")
-					else
-						logapp("2번 버튼 못찾음")
-				}
-				else if (rbtn = 3) ; 3번 버튼 클릭
-				{
-					if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text3))
-							FindText().Click(ok[index].x, ok[index].y, "L")
-					else
-						logapp("3번 버튼 못찾음")
-				}
-				else ; 4번 버튼 클릭
-				{
-					if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text4))
-							FindText().Click(ok[index].x, ok[index].y, "L")
-					else
-						logapp("4번 버튼 못찾음")
-				}
-			}
-
-			return
-		}
-	}
 }
 
 testStart(testFolder, index, answer)
@@ -937,33 +892,33 @@ middleTest()
 						answerList[wAns] := "오답"
 				}
 
-				lec1Question := []
-				lec1Answer := []
-
 				FileRead, testVar, % dirTestPath folderName[lecIndex] "-중간평가.txt"
 
 				Loop, Parse, testVar, `n
 				{
 					if(mod(A_Index,2))
-						lec1Question.push(A_LoopField)
+						lecQuestion.push(A_LoopField)
 					else
-						lec1Answer.push(A_LoopField)
+						lecAnswer.push(A_LoopField)
 				}
 
-				Loop, % lec1Question.Length()
+				; 중간평가 10문항, 최종평가 20~21문항
+				qTotal := 10 ; 이거 왜 안되지?
+
+				Loop, % qTotal
 				{
 					str := % "평가문제" A_Index ".bmp"
 
 					if(ok:=findQuestion(str))
 					{
-						if(InStr(lec1Question[A_Index], Clipboard))
+						if(ok:=compareQuestion(lecQuestion[A_Index], Clipboard, lecQuestion.Length()))
 						{
 							if(mod(A_Index,2)) ; 홀수
-								clickAnswer(lec1Answer[A_Index], 1, answerList[ansIndex])
+								clickAnswer(ok, 1, answerList[ansIndex])
 							else ; 짝수
 							{
 								; 문제 풀이 후 다음문제 클릭
-								clickAnswer(lec1Answer[A_Index], 2, answerList[ansIndex])
+								clickAnswer(ok, 2, answerList[ansIndex])
 								sleep 1000
 								clickImg("다음문제.png")
 								sleep 4000
@@ -987,8 +942,8 @@ middleTest()
 					}
 					else
 					{
-						str := % A_Index "번 문제 못찾음"
-						logapp(str)
+						str := % A_Index "번 문제번호 위치 못찾음"
+						endapp(str)
 					}
 				}
 
