@@ -1,6 +1,6 @@
 ﻿#Include <FindText>
 
-global vPatchNum := "1031.10"
+global vPatchNum := "1026.15"
 global vSanViewID := "산업.txt"
 global vKyeongViewID := "경비.txt"
 global vMustViewID := "의무.txt"
@@ -387,10 +387,10 @@ logout()
 setMemu(phoneNum)
 {
 	clickImg("미뮤설정.png")
-	sleep 3000
+	sleep 1000
 
 	WinMove, MEmu,, 0,0,,
-	sleep 2000
+	sleep 500
 	MouseClick, Left, 106, 193 ; 옵션 클릭
 	sleep 500
 	MouseClick, Left, 309, 111 ; 브랜드
@@ -559,9 +559,6 @@ refreshWhale()
 ; 웨일 초기화
 whaleInit()
 {
-	MouseClick, Left, 10, 120
-	Sleep 1000
-
 	Loop, 5
 	{
 		refreshWhale()
@@ -588,41 +585,6 @@ whaleInit()
 		}
 		sleep 2000
 		if(ok:=findImg("kedu로그인.png", false))
-			break
-	}
-}
-
-; 웨일 새로고침
-refreshChrome()
-{
-	MouseClick, Left, 490, 105 ; 크롬 새로고침 버튼 위치, 두번 클릭
-	sleep 2000
-	MouseClick, Left, 490, 105 ; 크롬 새로고침 버튼 위치, 두번 클릭
-	sleep 2000
-}
-
-; 크롬 초기화
-chromeInit()
-{
-	MouseClick, Left, 5, 75 ; 아무것도 없는 공간
-	Sleep 1000
-
-	Loop, 5
-	{
-		refreshChrome()
-		if(ok:=findImg("chrome로그인이필요합니다.bmp", false))
-		{
-			sleep 1000
-			findImg("chrome확인.bmp", true)
-			sleep 3000
-
-		}
-		else
-		{
-
-		}
-		sleep 2000
-		if(ok:=findImg("kedu로그인.bmp", false))
 			break
 	}
 }
@@ -1265,18 +1227,18 @@ watchJikmuLecture(lecture)
 
 	; 웨일 어플 실행
 	;clickImg("미뮤웨일아이콘.png")
-	clickImg("크롬아이콘.bmp")
+	clickImg("미뮤웨일아이콘.bmp")
 	sleep 5000
 
 	; kedu 로그인 버튼 찾기
 	loop, 2
 	{
-		chromeInit()
+		whaleInit()
 
-		if(ok:=findImg("kedu로그인.bmp", false))
+		if(ok:=findImg("kedu로그인.png", false))
 		{
 			sleep 500
-			MouseClick, Left, 267, 392 ; 아이디 입력창
+			MouseClick, Left, 272, 300 ; 아이디 입력창
 			sleep 500
 			Send, ^{a}
 			sleep 500
@@ -1284,7 +1246,8 @@ watchJikmuLecture(lecture)
 			sleep 500
 			Send, % idinfo[2] ; 아이디 입력
 			sleep 500
-			Send, {Tab}
+
+			MouseClick, Left, 272, 388 ; 비밀번호 입력창
 			sleep 500
 			Send, ^{a}
 			sleep 500
@@ -1294,7 +1257,7 @@ watchJikmuLecture(lecture)
 			if (A_Index = 1)
 				Send, 1234 ; qwer1234{!} ; 로그인 비번 qwer1234{!}
 			else
-				Send, qwer1234{!} ; 1234 ; 로그인 비번 1234
+				Send, qwer1234! ; 1234 ; 로그인 비번 1234
 
 			sleep 500
 
@@ -1302,7 +1265,7 @@ watchJikmuLecture(lecture)
 			sleep 4000
 
 			; 로그인 되는지 확인
-			if(ok:=findImg("kedu내강의실.bmp", false))
+			if(ok:=findImg("kedu내강의실.png", false))
 				break
 		}
 		else
@@ -1310,7 +1273,7 @@ watchJikmuLecture(lecture)
 	}
 
 	; 로그인 되는지 확인
-	if(ok:=findImg("kedu내강의실.bmp", false))
+	if(ok:=findImg("kedu내강의실.png", false))
 	{}
 	else
 		endapp("Kedu 로그인 비번 1234 qwer 둘다 틀림")
@@ -1552,4 +1515,3 @@ ExitApp
 Esc::
 MsgBox, 프로그램 종료
 ExitApp
-

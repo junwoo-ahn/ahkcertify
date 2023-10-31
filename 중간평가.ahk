@@ -20,6 +20,10 @@ global Text1:="|<>*207$17.000000000000600w00M00k01U0300600A00Mk00000000000000001
 global Text2:="|<>*151$17.000000000000C00W00400800U0200800U01wE00000000000000001" ; 2번
 global Text3:="|<>*149$17.000000000000000w00400800E0700100200403kU00000000000001" ; 3번
 global Text4:="|<>*177$17.000000000000000600Q00c02E08U0F01z004008U00000000000001" ; 4번
+global Text1_1:="|<>*185$13.0000000M0Q020100U0E080402600000000001"
+global Text2_1:="|<>*166$13.000000000S0900E0E080808080Dm000000001"
+global Text3_1:="|<>*165$13.0000001s0601010300M04060y800000000001"
+global Text4_1:="|<>*162$13.00000004060500U2E281y0201400000000001"
 
 FileEncoding, UTF-8
 
@@ -66,8 +70,33 @@ findQuestion(imgFile)
 	}
 	else
 	{
-		str := % imgFile " 이미지 못찾음 (findImg)"
-		return false
+		StringReplace, str_1, imgFile, .bmp, _1.bmp
+		;MsgBox, % str_1
+
+		CoordMode pixel, screen
+
+		ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 %dirImgPath%%str_1%
+
+		CoordMode mouse, screen
+
+		sleep 1000
+		Mouseclick, left, FoundX, FoundY
+		sleep 1000
+		Mouseclick, left, FoundX, FoundY+60, 1, 10, D
+		Mouseclick, left, FoundX+952, FoundY+60, 1, 10, U
+		sleep 1000
+		send, ^{c}
+
+		if(ErrorLevel = 0)
+		{
+			str := % imgFile " 이미지 찾음 (findImg)"
+			return true
+		}
+		else
+		{
+			str := % imgFile " 이미지 못찾음 (findImg)"
+			return false
+		}
 	}
 }
 
@@ -97,6 +126,11 @@ clickAnswer(rBtn, index, answer)
 		;MsgBox, 1번 클릭
 		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text1))
 				FindText().Click(ok[index].x, ok[index].y, "L")
+		else if(ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text1_1))
+		{
+			;MsgBox, 1_1번 클릭
+			FindText().Click(ok[index].x, ok[index].y, "L")
+		}
 		else
 			logapp("1번 버튼을 못찾음")
 	}
@@ -105,6 +139,11 @@ clickAnswer(rBtn, index, answer)
 		;MsgBox, 2번 클릭
 		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text2))
 				FindText().Click(ok[index].x, ok[index].y, "L")
+		else if(ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text1_1))
+		{
+			;MsgBox, 2_1번 클릭
+			FindText().Click(ok[index].x, ok[index].y, "L")
+		}
 		else
 			logapp("2번 버튼 못찾음")
 	}
@@ -113,6 +152,11 @@ clickAnswer(rBtn, index, answer)
 		;MsgBox, 3번 클릭
 		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text3))
 				FindText().Click(ok[index].x, ok[index].y, "L")
+		else if(ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text1_1))
+		{
+			;MsgBox, 3_1번 클릭
+			FindText().Click(ok[index].x, ok[index].y, "L")
+		}
 		else
 			logapp("3번 버튼 못찾음")
 	}
@@ -121,6 +165,11 @@ clickAnswer(rBtn, index, answer)
 		;MsgBox, 4번 클릭
 		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text4))
 				FindText().Click(ok[index].x, ok[index].y, "L")
+		else if(ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text1_1))
+		{
+			;MsgBox, 4_1번 클릭
+			FindText().Click(ok[index].x, ok[index].y, "L")
+		}
 		else
 			logapp("4번 버튼 못찾음")
 	}
