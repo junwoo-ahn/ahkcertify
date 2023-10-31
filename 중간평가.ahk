@@ -874,7 +874,7 @@ middleTest()
 					MouseClick, Left, 947, 741, 2 ; 크롬 OTP번호란 클릭
 					sleep 1000
 
-					send, ^v
+					send, ^{v}
 					sleep 500
 					send, {Tab}
 					sleep 500
