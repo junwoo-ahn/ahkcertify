@@ -596,23 +596,23 @@ setMemu(phoneNum)
 
 setMOTP(name, phoneNum)
 {
-	clickImg("미뮤MOTP아이콘.png")
+	clickImg("미뮤MOTP아이콘.bmp")
 	sleep 5000
 
 	; MOTP 초기화 시작
 	; MOTP 등록 초기화 버튼
 
-	if(ok:=findImg("MOTP등록정보수정.png", true))
+	if(ok:=findImg("MOTP등록정보수정.bmp", true))
 	{
 		; 등록 초기화 시작
 		sleep 500
 
 		; 등록 초기화 하시겠습니까? 확인 클릭 (작은 확인)
-		clickImg("MOTP작은확인.png")
+		clickImg("MOTP작은확인.bmp")
 		sleep 500
 
 		; 초기화 되었습니다. 확인 클릭 (작은 확인)
-		clickImg("MOTP작은확인3.png")
+		clickImg("MOTP작은확인3.bmp")
 		sleep 500
 	}
 	else
@@ -621,15 +621,15 @@ setMOTP(name, phoneNum)
 	sleep 500
 
 	; 개인정보수집 동의
-	clickImg("MOTP동의.png")
+	clickImg("MOTP동의.bmp")
 	sleep 500
 
 	; MOTP 이용 주의사항
-	clickImg("MOTP동의2.png")
+	clickImg("MOTP동의2.bmp")
 	sleep 500
 
 	; 개인정보수집 동의함 라디오 버튼
-	clickImg("MOTP동의함.png")
+	clickImg("MOTP동의함.bmp")
 	sleep 500
 
 	Loop, 10
@@ -681,15 +681,15 @@ setMOTP(name, phoneNum)
 	sleep 700
 
 	; MOTP 입력 확인 (파랑색 확인 버튼)
-	clickImg("MOTP파랑확인.png")
+	clickImg("MOTP파랑확인.bmp")
 	sleep 1000
 
 	; 승인 요청하시겠습니까? (작은 확인 버튼)
-	clickImg("MOTP작은확인2.png")
+	clickImg("MOTP작은확인2.bmp")
 	sleep 1000
 
 	; 승인이 완료되었습니다. 확인 클릭 (작은 확인)
-	clickImg("MOTP작은확인3.png")
+	clickImg("MOTP작은확인3.bmp")
 	sleep 1000
 
 }
@@ -871,12 +871,13 @@ middleTest()
 					MouseClick, Left, 262, 575, 2 ; MOTP 클립보드에 복사
 					sleep 2000
 
-					MouseClick, Left, 947, 741, 2 ; 크롬 OTP번호란 클릭
-					sleep 1000
-
+					MouseClick, Left, 947, 731, 2 ; 크롬 OTP번호란 클릭
+					sleep 500
 					send, ^{v}
 					sleep 500
 					send, {Tab}
+
+
 					sleep 500
 					send, {Tab}
 					sleep 500
@@ -1024,287 +1025,10 @@ middleTest()
 				{
 					; 최종 확인 버튼 클릭
 					clickImg("확인2.png")
-					sleep 1000
-
-					clickImg("확인3.png")
-					sleep 1000
-
-				}
-
-				break ; 평가 완료
-			}
-			else
-				MouseClick WheelDown,,,1
-
-			sleep 500
-
-		}
-
-		; 탑으로 올라가서 로고 클릭 내강의실 클릭
-		sleep 1000
-		MouseClick WheelUp,,,50
-
-		; 로고 클릭
-		clickImg("로고.png")
-		Sleep 1000
-		waitLogo()
-
-		; 내 강의실 클릭
-		clickImg("내강의실.png")
-		sleep 2000
-
-	}
-
-	logout()
-
-}
-
-; 최종평가 테스트
-lastTest()
-{
-	; 이미지 불러오기 (선형 탐색)
-	; MOTP 해야됨
-	sleep 1000
-	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
-	sleep 10000
-
-	Loop, 20
-	{
-		if(ok:=findImg("미뮤웨일아이콘.png", false))
-			break
-		sleep 1000
-	}
-
-	Sleep 1000
-	WinActivate, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기)
-	Sleep 1000
-	WinMove, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기),, 0,0,,
-
-	SetKeyDelay, 300
-
-	checkIME()
-
-	sleep 1000
-	FileEncoding, UTF-8
-	CoordMode, Mouse, Screen
-
-	; 아이디 읽기
-	FileRead, varfile, %dirPath%%vLastTestID%
-
-	idinfo := []
-	; 아이디.txt 파일 읽기, 아이디, 전화번호 구분, idinfo[1] = 이름, idinfo[2] = 아이디, idinfo[3] = 휴대폰번호
-	Loop, Parse, varfile, " "
-		idinfo[A_Index] := A_LoopField
-
-	checkPass = 1
-
-	if(!idinfo[1])
-		return
-
-	; 전화번호 파싱 -> phoneNum[1] = 010, phoneNum[2] = 두번째 폰번호, phoneNum[3] = 세번째 폰번호
-	phoneNum := transNum(idinfo[3])
-
-	idStr := % A_LoopField " 시작"
-	logapp(idStr)
-
-	clipboard =
-
-	; 미뮤 설정 시작
-	setMemu(phoneNum)
-
-	; 미뮤 초기화
-	memuInit()
-
-	; MOTP 설정
-	setMOTP(idinfo[1], phoneNum)
-
-	; kedu 로그인
-	loginKedu(idinfo[2])
-
-	WinActivate, 한국이러닝교육센터 - Chrome
-
-	; 강의 종류 만큼 루프
-	Loop, % lecList.length()
-	{
-		lecIndex = % A_Index
-		Loop, 10
-		{
-			if(ok:=findImg(lecList[lecIndex], true))
-			{
-				; 강의클릭 후 들어옴
-				sleep 2000
-				MouseClick WheelDown,,,4
-				sleep 1000
-
-				findBtn := false
-
-				; 중간평가 응시하기 버튼 있는지 확인
-				Loop, 25
-				{
-					if(ok:=findImg("중간평가평가응시버튼.png", true))
-					{
-						sleep 2000
-						if(ok:=findImg("진도율부족.bmp", false))
-						{
-							sleep 1000
-							clickImg("확인(인증).png")
-							sleep 1000
-							break
-						}
-
-						findBtn := true
-						break
-					}
-
-					MouseClick WheelDown,,,1
-					sleep 500
-				}
-
-				if(findBtn = false)
-					break ; 중간평가 준비 되지 않았음
-
-				sleep 3000
-				motp := 1
-
-				Loop, 2
-				{
-					; MOTP 인식
-					WinActivate, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기)
-					Sleep 1000
-					WinMove, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기),, 0,0,,
-					sleep 1000
-
-					MouseClick, Left, 262, 575, 2 ; MOTP 클립보드에 복사
 					sleep 2000
 
-					MouseClick, Left, 947, 741, 2 ; 크롬 OTP번호란 클릭
-					sleep 1000
-
-					send, ^v
-					sleep 500
-					send, {Tab}
-					sleep 500
-					send, {Tab}
-					sleep 500
-					Send, {Enter} ; 인증하기 클릭
-					sleep 1000
-
-					; 오류 확인
-					if(ok:=findImg("MOTP오류확인.png", true))
-					{
-						; MOTP 틀림
-						if (motp = 2)
-						{
-							; MOTP 2번 틀림
-							endapp("MOTP 2번 틀림.  즉시 종료")
-						}
-						continue
-					}
-					else
-						break ; MOTP 맞음
-				}
-
-				; 최종평가 설문조사 실시
-				sleep 1000
-				researchCheck := false
-				if(ok:=findImg("최종평가유의사항.png", false))
-				{
-					researchCheck := true
-					sleep 1000
-					research()
-				}
-
-				Sleep 1000
-				MouseClick WheelDown,,,12
-				sleep 1000
-
-				clickImg("위사항을.png")
-
-				sleep 1000
-				Send, {Tab}
-				sleep 1000
-				Send, {Space}
-				sleep 3000
-
-				; 평가 재응시 불가능 팝업창
-				if (ok:=findImg("평가재응시.png", false))
-				{
-					clickImg("확인1.png")
+					clickImg("확인3.bmp")
 					sleep 2000
-				}
-				else
-					logapp("평가 재응시 불가능 팝업창 못찾음")
-
-				sleep 4000
-
-				; 평가 시작
-				qaListInit()
-				startTime := A_TickCount ; 시작시간 저장
-
-				; 오답수, 오답문제 설정
-				Random, wAnsNum, 1, 5
-
-				Loop, % wAnsNum
-				{
-					Random, wAns, 1, 10
-
-					if(answerList[wAns] = "오답") ; 이미 오답설정이 되어 있는 경우
-					{
-						wAnsNum--
-						continue
-					}
-					else
-						answerList[wAns] := "오답"
-				}
-
-				Loop, 5
-				{
-					testStart(folderName[lecIndex], 1, answerList[ansIndex]) ; 폴더명, 인덱스, 문제 정답 맞추기 유무
-					ansIndex++
-					testStart(folderName[lecIndex], 2, answerList[ansIndex]) ; 폴더명, 인덱스, 문제 정답 맞추기 유무
-					ansIndex++
-					sleep 1000
-					clickImg("다음문제.png")
-					sleep 4000
-					if(ok:=findImg("마지막문제확인.png", true))
-					{
-						sleep 1000
-						break
-					}
-				}
-
-				; 랜덤하기 대기 5분~7분
-				endTime := A_TickCount - startTime
-				Random, sleepTime, 300000, 420000
-
-				waitTime := sleepTime - endTime
-
-				Loop
-				{
-					if(waitTime > 0)
-					{
-						waitTime := waitTime - 10000
-						leftTime := waitTime / 1000
-						MsgBox,,, %leftTime%"초 남았음", 5
-						sleep 10000
-					}
-					else
-						break
-				}
-
-				clickImg("최종제출.png")
-
-				sleep 4000
-
-				; 최종 제출후 수정 안됨 확인
-				if (ok:=findImg("최종제출후수정안됨.png", false))
-				{
-					; 최종 확인 버튼 클릭
-					clickImg("확인2.png")
-					sleep 1000
-
-					clickImg("확인3.png")
-					sleep 1000
 
 				}
 
@@ -1339,6 +1063,8 @@ lastTest()
 ; 중간평가 시작
 Button중간평가테스트:
 {
+	Gui, Minimize
+
 	logapp("시작")
 	middleTest()
 	endapp("테스트 종료")
@@ -1347,8 +1073,10 @@ Button중간평가테스트:
 
 Button최종평가테스트:
 {
+	Gui, Minimize
+
 	logapp("시작")
-	lastTest()
+	;lastTest()
 	endapp("테스트 종료")
 
 }
