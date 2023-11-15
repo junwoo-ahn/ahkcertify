@@ -1,13 +1,13 @@
 ﻿#Include <FindText>
 
-global vPatchNum := "1031.10"
+global vPatchNum := "1107.14"
 global vSanViewID := "산업.txt"
 global vKyeongViewID := "경비.txt"
 global vMustViewID := "의무.txt"
 global vJikmuViewID := "직무.txt"
 global dirPath := "C:\Users\user\Downloads\"
 global dirImgPath := "C:\Users\user\Downloads\image\"
-global lecName := ["직장내성희롱.png", "직장내장애인.png", "직장내괴롭힘.png", "개인정보보호.png", "퇴직연금.png", "급여제공지침.png", "아동학대.png", "노인학대.png", "장애인학대.png"]
+global lecName := ["보육법정24.png", "직장내성희롱.png", "직장내장애인.png", "직장내괴롭힘.png", "개인정보보호.png", "퇴직연금.png", "급여제공지침.png", "아동학대.png", "노인학대.png", "장애인학대.png", "고용노동부장애인.png"]
 ; 휴대폰 디바이스 폰 모델명
 global deviceModel := ["SM-S908N", "SM-S901N", "SM-S906N", "SM-G977N", "SM-G973N", "SM-G975N", "SM-G970N", "SM-N971N", "SM-N976N", "SM-N970N", "SM-G965N", "SM-G965N", "SM-G960N", "SM-G965N", "SM-A908N", "SM-A805N", "SM-G9880", "SM-F721N", "SM-F700N", "SM-F711N", "SM-F731N", "SM-F946N", "SM-F936N", "SM-F926N", "SM-A245N", "SM-A346N", "SM-A546S", "SM-A536N", "SM-A136S"]
 global vRefreshDelay := 1000
@@ -36,7 +36,7 @@ return
 
 testText(imgFile)
 {
-	MouseMove, 10, 120
+	MouseMove, 10, 200
 
 	CoordMode pixel, screen
 
@@ -59,7 +59,7 @@ testText(imgFile)
 
 clickOnemoreImg(imgFile)
 {
-	MouseMove, 10, 120
+	MouseMove, 10, 200
 
 	sleep vRefreshDelay+100
 
@@ -86,7 +86,7 @@ clickOnemoreImg(imgFile)
 
 clickImg(imgFile)
 {
-	MouseMove, 10, 120
+	MouseMove, 10, 200
 
 	CoordMode pixel, screen
 
@@ -110,7 +110,7 @@ clickImg(imgFile)
 
 findImg(imgFile, isClick)
 {
-	MouseMove, 10, 120
+	MouseMove, 10, 200
 
 	sleep vRefreshDelay+100
 
@@ -427,26 +427,22 @@ setMemu(phoneNum)
 ; MOTP 설정
 setMOTP(name, phoneNum)
 {
-	;clickImg("미뮤MOTP아이콘.png")
 	clickImg("미뮤MOTP아이콘.bmp")
 	sleep 5000
 
 	; MOTP 초기화 시작
 	; MOTP 등록 초기화 버튼
 
-	;if(ok:=findImg("MOTP등록정보수정.png", true))
 	if(ok:=findImg("MOTP등록정보수정.bmp", true))
 	{
 		; 등록 초기화 시작
 		sleep 500
 
 		; 등록 초기화 하시겠습니까? 확인 클릭 (작은 확인)
-		;clickImg("MOTP작은확인.png")
 		clickImg("MOTP작은확인.bmp")
 		sleep 500
 
 		; 초기화 되었습니다. 확인 클릭 (작은 확인)
-		;clickImg("MOTP작은확인3.png")
 		clickImg("MOTP작은확인3.bmp")
 		sleep 500
 	}
@@ -456,17 +452,14 @@ setMOTP(name, phoneNum)
 	sleep 500
 
 	; 개인정보수집 동의
-	;clickImg("MOTP동의.png")
 	clickImg("MOTP동의.bmp")
 	sleep 500
 
 	; MOTP 이용 주의사항
-	;clickImg("MOTP동의2.png")
 	clickImg("MOTP동의2.bmp")
 	sleep 500
 
 	; 개인정보수집 동의함 라디오 버튼
-	;clickImg("MOTP동의함.png")
 	clickImg("MOTP동의함.bmp")
 	sleep 500
 
@@ -520,21 +513,14 @@ setMOTP(name, phoneNum)
 	MouseClick, Left, 12, 364
 	sleep 700
 
-	; MOTP 입력 확인 (파랑색 확인 버튼)
-	;clickImg("MOTP파랑확인.png")
 	clickImg("MOTP파랑확인.bmp")
 	sleep 1000
 
-	; 승인 요청하시겠습니까? (작은 확인 버튼)
-	;clickImg("MOTP작은확인2.png")
 	clickImg("MOTP작은확인2.bmp")
 	sleep 1000
 
-	; 승인이 완료되었습니다. 확인 클릭 (작은 확인)
-	;clickImg("MOTP작은확인3.png")
 	clickImg("MOTP작은확인3.bmp")
 	sleep 1000
-
 }
 
 ; 휴대폰 번호 파싱
@@ -556,43 +542,7 @@ refreshWhale()
 	sleep 2000
 }
 
-; 웨일 초기화
-whaleInit()
-{
-	MouseClick, Left, 10, 120
-	Sleep 1000
-
-	Loop, 5
-	{
-		refreshWhale()
-		if(ok:=findImg("웨일세션종료메시지.png", false))
-		{
-			sleep 1000
-			findImg("웨일확인.png", true)
-			sleep 3000
-			MouseClick, Left, 281, 875
-			sleep 2000
-			Send, kedu.kr
-			sleep 1000
-			send, {Enter}
-		}
-		else
-		{
-			findImg("웨일확인.png", true)
-			sleep 2000
-			if(ok:=findImg("웨일로그인버튼(세션종료).png", true))
-			{
-				Sleep 2000
-				findImg("웨일아이콘(세션종료).png", true)
-			}
-		}
-		sleep 2000
-		if(ok:=findImg("kedu로그인.png", false))
-			break
-	}
-}
-
-; 웨일 새로고침
+; 크롬 새로고침
 refreshChrome()
 {
 	MouseClick, Left, 490, 105 ; 크롬 새로고침 버튼 위치, 두번 클릭
@@ -610,16 +560,27 @@ chromeInit()
 	Loop, 5
 	{
 		refreshChrome()
+		sleep 3000
 		if(ok:=findImg("chrome로그인이필요합니다.bmp", false))
 		{
 			sleep 1000
-			findImg("chrome확인.bmp", true)
+			clickImg("chrome확인.bmp")
 			sleep 3000
 
 		}
-		else
+		else if(ok:=findImg("chrome로그인8시간.bmp", false))
 		{
-
+			sleep 1000
+			clickImg("chrome로그인8시간확인.bmp")
+			sleep 3000
+			clickImg("chrome로그인8시간확인.bmp")
+			sleep 3000
+		}
+		else if(ok:=findImg("chrome다시로그인.bmp", false))
+		{
+			sleep 1000
+			clickImg("chrome로그인.bmp")
+			sleep 3000
 		}
 		sleep 2000
 		if(ok:=findImg("kedu로그인.bmp", false))
@@ -1161,7 +1122,7 @@ watchMustLecture(lecture)
 		MouseClick WheelDown,,,8
 		sleep 2000
 
-		Loop, 30 ; 6차시 까지. - 이어보기 잘 안될경우 대비해서 12번 루프
+		Loop, 25 ; 보육법정 24차시
 		{
 			; 이어보기 버튼 클릭 - 이어보기 버튼이 활성화 되어 있을 때에는 이어보기가 우선
 			if (ok:=findImg("이어보기.png", true))
@@ -1180,12 +1141,8 @@ watchMustLecture(lecture)
 				sleep 500
 				MouseClick WheelDown,,,1
 				sleep 500
-				if(indexLec = 6) ; 급여제공지침 일 경우 스크롤 내리면서 더 검색
-					continue
-				else if(indexLec = 7) ; 어린이집 통합교육일 경우 스크롤 내리면서 더 검색
-					continue
-				else
-					break
+
+				continue
 			}
 
 			sleep 3000
@@ -1356,6 +1313,17 @@ Button의무:
 	Gui, submit, nohide
 	GuiControlGet, delay,,DelayLBox
 	vRefreshDelay := delay*1000
+
+	/*
+	Gui, Minimize
+	sleep 1000
+	if (ok:=findImg("보육법정24.png", false))
+		MsgBox, 보육 찾았음
+	else
+		MsgBox, 보육 못찾음
+
+	ExitApp
+	*/
 
 	watchMustLecture("의무교육")
 
