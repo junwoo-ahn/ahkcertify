@@ -1,13 +1,13 @@
 ﻿#Include <FindText>
 
-global vPatchNum := "1107.14"
+global vPatchNum := "1121.14"
 global vSanViewID := "산업.txt"
 global vKyeongViewID := "경비.txt"
 global vMustViewID := "의무.txt"
 global vJikmuViewID := "직무.txt"
 global dirPath := "C:\Users\user\Downloads\"
 global dirImgPath := "C:\Users\user\Downloads\image\"
-global lecName := ["보육법정24.png", "직장내성희롱.png", "직장내장애인.png", "직장내괴롭힘.png", "개인정보보호.png", "퇴직연금.png", "급여제공지침.png", "아동학대.png", "노인학대.png", "장애인학대.png", "고용노동부장애인.png"]
+global lecName := ["보육법정24.png", "직장내성희롱.png", "직장내장애인.png", "직장내괴롭힘.png", "개인정보보호.png", "퇴직연금.png", "급여제공지침.png", "아동학대.png", "노인학대.png", "장애인학대.png", "고용노동부장애인.png", "관리감독자교육.bmp"]
 ; 휴대폰 디바이스 폰 모델명
 global deviceModel := ["SM-S908N", "SM-S901N", "SM-S906N", "SM-G977N", "SM-G973N", "SM-G975N", "SM-G970N", "SM-N971N", "SM-N976N", "SM-N970N", "SM-G965N", "SM-G965N", "SM-G960N", "SM-G965N", "SM-A908N", "SM-A805N", "SM-G9880", "SM-F721N", "SM-F700N", "SM-F711N", "SM-F731N", "SM-F946N", "SM-F936N", "SM-F926N", "SM-A245N", "SM-A346N", "SM-A546S", "SM-A536N", "SM-A136S"]
 global vRefreshDelay := 1000
@@ -199,10 +199,15 @@ clickTestBtn(index)
 	; 4번 -> 수정
 	;Text4:="|<>*175$33.0000003s0001zk000w7U0060A001U0k0MA0607300M0cM0309300M28M030F300M7wA06011U0k0860A000w7U001zk0003s000000004"
 
-	Text1:="|<>*207$17.000000000000600w00M00k01U0300600A00Mk00000000000000001" ; 1번
-	Text2:="|<>*151$17.000000000000C00W00400800U0200800U01wE00000000000000001" ; 2번
-	Text3:="|<>*149$17.000000000000000w00400800E0700100200403kU00000000000001" ; 3번
-	Text4:="|<>*177$17.000000000000000600Q00c02E08U0F01z004008U00000000000001" ; 4번
+	Text1:="|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,9/-1/FFC784,10/-1/000084,10/-2/FFFFC6,11/-1/C6C784,11/-2/840000,12/-2/52A6E7,16/6/FFC784,17/6/0055A5"
+	Text2:="|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,8/-1/FFFFE7,9/-1/A55584,9/-2/FFE3A5,10/-2/520000,12/-2/000084,13/-2/C6FFFF,13/0/840084,12/6/000000,14/6/A5E3FF,17/6/0055A5"
+	Text3:="|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,8/-2/FFFFE7,9/-2/A55500,10/-2/000000,12/-2/000052,13/-2/A5E3FF,14/-1/C6FFFF,13/-1/520084,10/2/840000,16/6/FFC784,17/6/0055A5,13/6/C6FFFF,8/6/FFE3A5,10/6/000000"
+	Text4:="|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,8/4/C68200,9/4/000000,9/3/52A6E7,8/3/FFC784,9/2/C68252,10/1/8455A5,12/-2/840000,14/4/0055A5,12/6/FFC784,13/6/52A6E7,16/6/FFC784,17/6/0055A5"
+
+	;Text1:="|<>*207$17.000000000000600w00M00k01U0300600A00Mk00000000000000001" ; 1번
+	;Text2:="|<>*151$17.000000000000C00W00400800U0200800U01wE00000000000000001" ; 2번
+	;Text3:="|<>*149$17.000000000000000w00400800E0700100200403kU00000000000001" ; 3번
+	;Text4:="|<>*177$17.000000000000000600Q00c02E08U0F01z004008U00000000000001" ; 4번
 
 
 	if (ok:=FindText(X, Y, 566-150000, 658-150000, 566+150000, 658+150000, 0, 0, Text1o))
@@ -829,7 +834,7 @@ watchLecture(lecture)
 			{
 				; 이어보기 들어옴
 				;clickImg("이어보기.png")
-				sleep 30000 ; 서버에 수강완료 데이터가 전송되는 시간 딜레이타임
+				sleep 10000 ; 서버에 수강완료 데이터가 전송되는 시간 딜레이타임
 			}
 			else if (ok:=findImg("수강하기.png", true))
 			{
@@ -855,11 +860,16 @@ watchLecture(lecture)
 					;clickImg("학습종료.png")
 					break
 				}
+				else if(ok:=findImg("다시보기.bmp", false))
+				{
+					clickImg("학습중지.bmp")
+					break
+				}
 
 				sleep 30000
 			}
 
-			sleep 3000
+			sleep 10000
 		}
 
 		logapp("수강 완료 - 평가 시작")
@@ -1153,12 +1163,20 @@ watchMustLecture(lecture)
 			Loop
 			{
 				if (ok:=findImg("학습종료.png", true))
+				{
+					;clickImg("학습종료.png")
 					break
+				}
+				else if(ok:=findImg("다시보기.bmp", false))
+				{
+					clickImg("학습중지.bmp")
+					break
+				}
 
 				sleep 30000
 			}
 
-			sleep 3000
+			sleep 10000
 		}
 
 		logapp("수강 완료 - 다음과정 진행")
