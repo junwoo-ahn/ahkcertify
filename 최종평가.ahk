@@ -6,14 +6,11 @@ global vLastTestID := "최종평가.txt"
 global dirPath := "C:\Users\user\Downloads\"
 global dirImgPath := "C:\Users\user\Downloads\image\"
 global dirTestPath := "C:\Users\user\Downloads\평가문제\"
-global lecList := ["직무-X와MZ.png", "직무-기업의성공.png", "직무-디지털융합의중심.png", "직무-비대면시대.png"]
+global lecList := ["직무-스마트워크.png", "직무-구해줘.png", "직무-디지털트랜스.png", "직무-평범한회사.png", "직무-헬스케어.png", "직무-주거서비스.png", "직무-X와MZ.png", "직무-기업의성공.png", "직무-디지털융합의중심.png", "직무-비대면시대.png"]
 global deviceModel := ["SM-S908N", "SM-S901N", "SM-S906N", "SM-G977N", "SM-G973N", "SM-G975N", "SM-G970N", "SM-N971N", "SM-N976N", "SM-N970N", "SM-G965N", "SM-G965N", "SM-G960N", "SM-G965N", "SM-A908N", "SM-A805N", "SM-G9880", "SM-F721N", "SM-F700N", "SM-F711N", "SM-F731N", "SM-F946N", "SM-F936N", "SM-F926N", "SM-A245N", "SM-A346N", "SM-A546S", "SM-A536N", "SM-A136S"]
-global folderName := ["x와mz", "기업의성공", "디지털융합", "비대면시대"]
+global folderName := ["스마트워크", "구해줘", "디지털트랜스", "평범한회사", "헬스케어", "주거서비스", "x와mz", "기업의성공", "디지털융합", "비대면시대"]
 global CLICKPOINT := 20 ; default 20 평가 이미지들은 크기가 작아서 20포인트로 설정하면 잘못된 곳에 클릭이 됨.
-global questionList := ["안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음"]
-global answerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
-global lastQuestionList := ["안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음"]
-global lastAnswerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
+global answerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
 global lecQuestion := []
 global lecAnswer := []
 global wrongAnswer := []
@@ -29,64 +26,7 @@ global Text1_1:="|<>*185$13.0000000M0Q020100U0E080402600000000001"
 global Text2_1:="|<>*166$13.000000000S0900E0E080808080Dm000000001"
 global Text3_1:="|<>*165$13.0000001s0601010300M04060y800000000001"
 global Text4_1:="|<>*162$13.00000004060500U2E281y0201400000000001"
-global TextQuestionNumber := [
-; 문제 1
-"|<>##0$0/0/565665,1/-1/FFD197,2/-1/565665,3/-1/565697,4/-1/D3FFFF,14/-2/565665,18/-3/FFD197,19/-3/565665,20/-3/567BB5,22/-3/D39C65,23/-3/565665,24/-3/569CCD,37/11/D39C65,39/11/9DD1FF,35/1/EFE2E1,34/-1/FFECC3,36/-3/FFFCE1",
-; 문제 2
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,2/3/6CA1D2,17/1/FFD197,18/1/565665,19/1/567BB5,21/1/D39C65,22/1/565665,23/1/569CCD,32/1/FFD49B,32/0/EFB983,33/0/565665,34/1/B3D1E1,35/7/FFFFFA,36/7/D39E6F,37/7/565665,38/7/5B86BE,35/11/7CB7E6",
-; 문제 3
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/15/D39E65,22/14/565665,23/14/569CCD,32/1/FFEAB5,33/1/7C637E,34/1/A2BFD7,37/1/FAEFD7,38/1/B88C6F,39/1/565665,41/1/C9F7FF,39/9/9D5665",
-; 문제 4
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-2/FFD197,18/-1/565665,19/-1/567BB5,21/-1/D39C65,22/-1/565665,23/-1/569CCD,32/6/FFDAA1,33/6/665665,34/6/619CCD,38/6/B87B65,39/6/56567E,40/6/B8EAFF",
-; 문제 5
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/-1/D39C65,22/-1/565665,23/-1/569CCD,32/-1/FFFFCD,33/-1/9D5665,34/-1/565665,40/-1/565697,41/-1/D3FFFF,41/7/569CCD,39/7/D39C65,33/12/E9D1B5,34/12/988173",
-; 문제 6
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/0/FFD197,18/0/565665,19/0/567BB5,21/7/D39C65,22/7/565665,23/7/569CCD,31/6/FFFFE6,32/6/B87B65,33/6/565665,35/6/8CB7D7,35/4/DFB792,41/9/5663A1,41/0/9DD1FF",
-; 문제 7
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/0/FFD197,18/0/565665,19/0/567BB5,21/0/D39C65,22/0/565665,23/0/569CCD,31/0/FFFFE6,32/0/B87B65,40/0/565665,41/0/87C1F1,38/8/B3E4FF,37/5/925B65",
-; 문제 8
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/0/FFD197,18/0/565665,19/0/567BB5,21/0/D39C65,22/0/565665,23/0/569CCD,31/8/FFFFE1,31/9/FFF2BE,32/9/875665,33/9/56567E,34/9/B8EAFF,34/8/7CB4E6,41/8/567BB5",
-; 문제 9
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/0/FFD197,18/0/565665,19/0/567BB5,21/0/D39C65,22/0/565665,23/0/569CCD,31/5/FFFFDD,32/4/9D5665,33/4/565679,34/4/B3E7FF,34/2/82BFF1,38/-1/668197,37/13/7689A6",
-; 문제 10
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/0/FFD197,18/0/565665,19/0/567BB5,21/0/D39C65,22/0/565665,23/0/569CCD,36/6/D39C65,37/6/565665,38/6/9DD1FF,33/1/FFECC3,43/7/FFFFCD,44/7/9D5665,45/7/565665,46/7/9DD4FF,46/6/B8EAFF,53/6/565697,53/4/567BB5,53/3/569CCD,47/13/87736A",
-; 문제 11
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/-1/D39C65,22/-1/565665,23/-1/569CCD,36/13/D39C65,37/13/565665,35/2/7CB7E6,34/3/EFE2E1,33/2/F4D197,33/1/FFECC3,45/1/FFECC3,46/1/926965,47/1/56566F,48/1/666965,49/1/565665,50/1/9DD1FF,48/6/D39C65",
-; 문제 12
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/-1/D39C65,22/-1/565665,23/-1/569CCD,38/12/9DD1FF,37/12/565665,36/12/D39C65,35/1/7CB7E6,34/1/665665,34/2/EFE2E1,33/1/F4D197,52/1/567BB5,52/0/61A4D7,52/-1/C3EFFF,51/-1/565E8D,50/-1/565665,44/12/9D5665"
-; 문제 13
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/15/D39E65,22/15/565665,23/15/569CCD,33/2/F4D197,34/2/665665,35/2/7CB7E6,36/2/CE9C65,37/2/565665,38/2/9DD1FF,44/11/B87E73,45/11/8CB7D7,46/6/B87B65,47/6/565665,50/3/FFE7AF,51/3/7C5665",
-; 문제 14
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/0/FFD197,18/0/565665,19/0/567BB5,21/0/D39C65,22/0/565665,23/0/569CCD,33/1/FFECC3,34/1/926965,35/1/56566F,36/1/666965,37/1/565665,38/1/9DD1FF,43/9/E9B77E,43/10/D39C65,44/9/565665,44/8/AD7365,45/8/565B92,47/2/FFE7AF,48/2/7C5665,49/2/669EB5"
-; 문제 15
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/-1/D39C65,22/-1/565665,23/-1/569CCD,36/13/D39C65,37/13/565665,38/13/9DD1FF,35/2/7CB7E6,34/2/665665,33/2/F4D197,36/1/666965,34/0/FFF4D2,44/-1/FFFFCD,45/-1/9D5665,46/-1/565665,52/-1/565697,53/-1/D3FFFF,51/8/D39C65,53/8/569CCD,49/13/5B667E"
-; 문제 16
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/-1/D39C65,22/-1/565665,23/-1/569CCD,35/-1/FFFCE1,37/-1/565665,38/-1/9DD1FF,34/3/EFE2E1,44/4/CE9665,44/3/F4C187,44/2/FFEFBE,45/2/875B65,46/2/565665,46/3/566EA6,45/3/565665,47/3/DFFCFF,50/13/617387,46/13/F4DDB5"
-; 문제 17
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/-1/D39C65,22/-1/565665,23/-1/569CCD,38/13/9DD1FF,36/13/D39C65,34/3/EFE2E1,35/2/7CB7E6,34/2/665665,33/2/F4D197,33/1/FFECC3,43/0/FFFFE6,44/0/B87B65,45/0/565665,53/0/87C1F1,48/7/B37365,49/8/565679,48/8/715665,48/5/FFF7C9"
-; 문제 18
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/-1/D39C65,22/-1/565665,23/-1/569CCD,34/-1/FFF4D2,35/-1/A27665,36/-1/565665,37/-1/565665,38/-1/9DD1FF,43/9/FFFCC9,44/9/985665,45/9/56566F,46/9/A2D7FF,34/2/EFE2E1,51/12/98BFD7,50/12/616B83,46/12/DFBF97,47/12/826B6A"
-; 문제 19
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-2/FFD197,18/-2/565665,19/-2/567BB5,21/-2/D39C65,22/-2/565665,23/-2/569CCD,37/12/565665,36/12/D39C65,34/2/EFE2E1,33/1/F4D197,34/1/665665,35/1/7CB7E6,46/-2/E9CCA6,47/-2/87736A,48/-2/5B5665,50/-2/668197,51/-2/BDDDF1,51/8/A26365,51/7/C3A16F"
-; 문제 20
-"|<>##0$0/0/FFD197,1/0/565665,2/0/565697,3/0/D3FFFF,17/-1/FFD197,18/-1/565665,19/-1/567BB5,21/-1/D39C65,22/-1/565665,23/-1/569CCD,33/-1/E9D1B5,34/-1/A2897E,35/-1/665E65,38/-1/8299BA,39/-1/DFF2FF,37/5/FFE2AA,31/12/FFFFF5,31/13/FFFFCD,32/13/9D5665,44/6/9D5665,45/5/565665,46/4/9DD1FF,44/2/E9B77E,50/-1/668197,51/-1/BDDDF1,53/6/565697,51/6/FFD197,51/2/AD7365,50/1/D3A479,46/13/EFCFA6,47/13/87736A"]
-
-; 1번
-; "|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,9/-1/FFC784,10/-1/000084,10/-2/FFFFC6,11/-1/C6C784,11/-2/840000,12/-2/52A6E7,16/6/FFC784,17/6/0055A5"
-; 2번
-; "|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,8/-1/FFFFE7,9/-1/A55584,9/-2/FFE3A5,10/-2/520000,12/-2/000084,13/-2/C6FFFF,13/0/840084,12/6/000000,14/6/A5E3FF,17/6/0055A5"
-; 3번
-; "|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,8/-2/FFFFE7,9/-2/A55500,10/-2/000000,12/-2/000052,13/-2/A5E3FF,14/-1/C6FFFF,13/-1/520084,10/2/840000,16/6/FFC784,17/6/0055A5,13/6/C6FFFF,8/6/FFE3A5,10/6/000000"
-; 4번
-; "|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,8/4/C68200,9/4/000000,9/3/52A6E7,8/3/FFC784,9/2/C68252,10/1/8455A5,12/-2/840000,14/4/0055A5,12/6/FFC784,13/6/52A6E7,16/6/FFC784,17/6/0055A5"
-
-/*
-if (ok:=FindText(X, Y, 638-150000, 544-150000, 638+150000, 544+150000, 0, 0, Text))
-{
-  ; FindText().Click(X, Y, "L")
-}
-*/
-
+global QText := [["|<>*178$71.00000000000000000000000000000000000003zw00PU000007zs00r000000A0kTli01U000M1UzXQ070000k3036s0S0001zy0CBk0w0003zw0MPU0M0000001rr00k0000003ji01U003zzwDXQ030007zzsvas060000303Xhk0A000060C2PU0M0006A0M0r00k000AM001i01U000M0003Q030000k0006s060001zz00Bk000003zy003U000000000000000000000000000000000000001","|<>*177$71.00000000000000000000000000000000000000000000000007zk01a000000Tzk03A000000s3Vz6M030001k73zAk0C0003UC0ANU0w0007zw0Mn03M0007zk1la00k0000003DA01U000000DSM03000DzzkyAk06000TzzXiNU0A0000C0CCn00M0000Q0sBa00k000Ms0U3A01U000lk006M030001U000Ak0600030000NU0A0007zw00n000000Dzs0060000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000000TzU03Q000000zz006s000001U63yBk0y00030A7wPU3y00060M0Mr04C000Dzk1li00A000TzU33Q00M000000Cys01k000000Rxk03000TzzVwPU0C000zzz7Qr00s0000M0QRi01U0000k1kHQ060000lU306s0M0001X000Bk1k00030000PU7z00060000r0Dy000Dzs01i000000Tzk00Q0000000000000000000000000000000000000001","|<>*177$71.00000000000000000000000003zs00n000000Dzs01a000000Q1kzXA0DU000s3VzaM0zk001k706Ak1XU003zy0ANU030003zs0sn0060000001ba00A0000007jA00s007zzsT6M01U00DzzlrAk0600007077NU0Q0000C0Q6n01k000AQ0E1a030000Ms003A0A0000k0006M0zs001U000Ak1zk003zy00NU000007zw0030000000000000000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000Tz006M000001zz00Ak000003UC7wNU0y00070QDwn07y000C0s0la0AC000Tzk1XA00A000Tz076M00s000000Awk03U000000xtU0y000zzz3sn01w001zzyCta00Q0000s0svA00Q0001k3UqM00M001XU20Ak01k0037000NU2300060000n07y000A0001a07k000Tzk03A000000zzU00M0000000000000000000000000000000000000001","|<>*178$71.0000000000000000000000000000000000000TzU03Q000000zz006s000001U63yBk0y00030A7wPU3z00060M0Mr04C000Dzk1li00A000TzU33Q00M000000Cys01k000000Rxk0z000TzzVwPU1y000zzz7Qr00C0000M0QRi00A0000k1kHQ00M000lU306s00k001X000Bk33U0030000PU7y00060000r07s000Dzs01i000000Tzk00Q0000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000DzU03A000000zzU06M000001k73yAk03U003UC7yNU0700070Q0Mn00S000Dzs0la01g000DzU3XA03M0000006SM0Ak000000Swk0FU00TzzVwNU1X000zzz7Qn0660000Q0QRa0AA0000s1kPA0zy000lk106M1zw001XU00Ak01U0030000NU0300060000n006000Dzs01a000000Tzk00A0000000000000000000000000000000000000001","|<>*177$71.0000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s01U001U63yBk0700030A0APU0C0007zs0kr00w000Dzk1Vi03M0000007TQ04k000000Cys0NU00DzzkyBk1X000TzzXiPU360000A0CCr0AA0000M0s9i0Ty000Mk1U3Q1zw000lU006s01U001U000Bk0300030000PU060007zw00r000000Dzs00C0000000000000000000000000000000000000001"],["|<>*177$71.00000000000000000000000000000000000007zk01a000000Tzk03A000000s3Vz6M0Ts001k73zAk0zk003UC0ANU1U0007zw0Mn0300007zk1la0600000003DA0Tk000000DSM0zk00DzzkyAk1Vk00TzzXiNU01U000C0CCn0030000Q0sBa006000Ms0U3A00A000lk006M0ks001U000Ak1zU0030000NU1w0007zw00n000000Dzs0060000000000000000000000000000000000000001","|<>*178$71.0000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s0zk001U63yBk1zU0030A0APU300007zs0sr060000Dzk1Vi0A00000007TQ0TU000000Cys0zk00DzzkyBk1XU00TzzXiPU03U000A0CCr0070000M0s9i00C000Mk1U3Q00M000lU006s0Vk001U000Bk1z00030000PU1w0007zw00r000000Dzs00C0000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000Tz006M000001zz00Ak000003UC7wNU0DU0070QDwn01z000C0s0la070000Tzk1XA0Q0000Tz076M0k0000000Awk1j0000000xtU3z000zzz3sn077001zzyCta0A60000s0svA0MC0001k3UqM0kM001XU20Ak1Uk0037000NU3XU0060000n03y000A0001a03s000Tzk03A000000zzU00M0000000000000000000000000000000000000001","|<>*178$71.00000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ03s000k31z6s0Tk001U606Bk0s0003zw0QPU3U0007zs0kr0600000003ji0Rk0000007TQ0zs007zzsT6s1sk00DzzlrBk3Uk0006077PU61U000A0Q4r0C3000AM0k1i0A6000Mk003Q0QM000k0006s0Tk001U000Bk0S0003zy00PU000007zw0070000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000DzU03A000000zzU06M000001k73yAk1zk003UC7yNU3zU0070Q0Mn007000Dzs0la00A000DzU3XA00s0000006SM01U000000Swk03000TzzVwNU0A000zzz7Qn00M0000Q0QRa01k0000s1kPA030000lk106M060001XU00Ak0M00030000NU0k00060000n03U000Dzs01a000000Tzk00A0000000000000000000000000000000000000001","|<>*178$71.0000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s1zs001U63yBk3zU0030A0APU030007zs0sr00C000Dzk1Vi00M0000007TQ01k000000Cys03000DzzkyBk06000TzzXiPU0Q0000A0CCr00k0000M0s9i03U000Mk1U3Q060000lU006s0A0001U000Bk0s00030000PU1U0007zw00r000000Dzs00C0000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000Tz006M000001zz00Ak000003UC7wNU0y00070QDwn03y000C0s0la0CC000Tzk1XA0MA000Tz076M0kM000000Awk0vU000000xtU0y000zzz3sn01w001zzyCta0CC0000s0svA0MA0001k3UqM1kQ001XU20Ak1Us0037000NU3XU0060000n03z000A0001a03s000Tzk03A000000zzU00M0000000000000000000000000000000000000001","|<>*178$71.00000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ07k000k31z6s0zk001U606Bk1VU003zw0QPU73U007zs0kr0660000003ji0CQ0000007TQ0Dk007zzsT6s0TU00DzzlrBk1nU0006077PU73U000A0Q4r0A3000AM0k1i0M6000Mk003Q0sQ000k0006s0zk001U000Bk0S0003zy00PU000007zw0070000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000000TzU03Q000000zz006s000001U63yBk0S00030A7wPU3y00060M0Mr06C000Dzk1li0QA000TzU33Q0kA000000Cys1UM000000Rxk3Vk00TzzVwPU33U00zzz7Qr07z0000M0QRi03y0000k1kHQ00M000lU306s00k001X000Bk03U0030000PU3y00060000r07k000Dzs01i000000Tzk00Q0000000000000000000000000000000000000001","|<>*177$71.00000000000000000000000007zk01a000000Tzk03A000000s3Vz6M0DU001k73zAk0zU003UC0ANU3XU007zw0Mn0630007zk1la0A60000003DA0MA000000DSM0kM00DzzkyAk1lk00TzzXiNU1zU000C0CCn01v0000Q0sBa006000Ms0U3A00Q000lk006M01k001U000Ak1z00030000NU3w0007zw00n000000Dzs0060000000000000000000000000000000000000000000000000001"],["|<>*178$71.000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s060D01U63yBk0Q0z030A0APU1s3b07zs0sr03k660Dzk1Vi01UQ600007TQ030kA0000Cys061UMDzzkyBk0A30kTzzXiPU0M61U0A0CCr00kA300M0s9i01UQ60Mk1U3Q030MM0lU006s060tk1U000Bk0A0z030000PU0M0w07zw00r000000Dzs00C00000000000000000000000000000000000000001","|<>*177$71.0000000000000000000000003zs00n000000Dzs01a000000Q1kzXA01U7k0s3VzaM070Tk1k706Ak0S1lk3zy0ANU1g31U3zs0sn00M6300001ba00kA600007jA01UMA7zzsT6M030kQDzzlrAk061Us07077NU0A31U0C0Q6n00M630AQ0E1a00kA60Ms003A01UQQ0k0006M030Tk1U000Ak060T03zy00NU000007zw00300000000000000000000000000000000000000000000000000001"],["|<>*179$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ030300k31z6s0C0C01U606Bk0w0w03zw0QPU1s1s07zs0kr00k0k00003ji01U1U00007TQ030307zzsT6s06060DzzlrBk0A0A006077PU0M0M00A0Q4r00k0k0AM0k1i01U1U0Mk003Q030300k0006s060601U000Bk0A0A03zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ030DU0k31z6s0C0zU1U606Bk0w13U3zw0QPU1s0307zs0kr00k0600003ji01U0Q00007TQ0300k7zzsT6s0603UDzzlrBk0A0C006077PU0M0M00A0Q4r00k1U0AM0k1i01U600Mk003Q030Q00k0006s061zk1U000Bk0A3zU3zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ030DU0k31z6s0C0zk1U606Bk0w13U3zw0QPU1s0307zs0kr00k0600003ji01U0Q00007TQ030Dk7zzsT6s060TUDzzlrBk0A03U06077PU0M0300A0Q4r00k060AM0k1i01U0A0Mk003Q030ks0k0006s061zU1U000Bk0A1y03zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ0300k0k31z6s0C03U1U606Bk0w0703zw0QPU1s0S07zs0kr00k1g00003ji01U2M00007TQ030Ak7zzsT6s060lUDzzlrBk0A1X006077PU0M6600A0Q4r00kDz0AM0k1i01Uzy0Mk003Q0300k0k0006s0601U1U000Bk0A0303zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ030Ts0k31z6s0C0zk1U606Bk0w1U03zw0QPU1s3007zs0kr00k6000003ji01UDk00007TQ030Ts7zzsT6s060lkDzzlrBk0A01k06077PU0M03U0A0Q4r00k070AM0k1i01U0A0Mk003Q030Es0k0006s060zU1U000Bk0A0y03zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s0607k1U63yBk0Q0zU30A0APU1s1k07zs0sr03k700Dzk1Vi01UA000007TQ030vU0000Cys061zkDzzkyBk0A3lUTzzXiPU0M71U0A0CCr00kA300M0s9i01UQ60Mk1U3Q030MA0lU006s060sk1U000Bk0A0zU30000PU0M0w07zw00r000000Dzs00C00000000000000000000000000000000000000001"],["|<>*178$71.000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s061zs1U63yBk0Q3zU30A0APU1s0307zs0sr03k0C0Dzk1Vi01U0M00007TQ0301k0000Cys06030DzzkyBk0A060TzzXiPU0M0Q00A0CCr00k0k00M0s9i01U3U0Mk1U3Q030600lU006s060A01U000Bk0A0s030000PU0M1U07zw00r000000Dzs00C00000000000000000000000000000000000000001"],["|<>*178$71.000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s060DU1U63yBk0Q1zU30A0APU1s3307zs0sr03kC70Dzk1Vi01UAA00007TQ030Qs0000Cys060TUDzzkyBk0A0z0TzzXiPU0M3b00A0CCr00kC700M0s9i01UM60Mk1U3Q030kA0lU006s061ks1U000Bk0A1zU30000PU0M0w07zw00r000000Dzs00C00000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000007zs00r000000Dzk01i000000M1UzXQ0307U0k31z6s0C0zU1U606Bk0w1XU3zw0QPU1s7307zs0kr00kA300003ji01UM600007TQ030sQ7zzsT6s060ksDzzlrBk0A1zk06077PU0M0zU0A0Q4r00k060AM0k1i01U0A0Mk003Q0300s0k0006s060zU1U000Bk0A1w03zy00PU000007zw00700000000000000000000000000000000000000000000000000001"],["|<>*177$71.000000000000000000000000000000000000000000000000TzU03Q000000zz006s000001U63yBk0y0S030A7wPU3y1y060M0Mr04C7C0Dzk1Vi00AAA0TzU33Q00MsA0000Cys01lUM0000Rxk0330kTzzVwPU0C61Uzzz7Qr00sA300M0QRi01UM600k1kHQ060sA0lU306s0M0kk1X000Bk1k1nU30000PU7z1y060000r0Dy1s0Dzs01i000000Tzk00Q00000000000000000000000000001"]]
 
 FileEncoding, UTF-8
 
@@ -94,14 +34,19 @@ Gui, Add, Text, x200 y20 w180 h30,
 Gui, Add, Button, x10 y10 w180 h30, 로그인후보기
 Gui, Add, Text, x200 y60 w180 h30, 최종평가.txt
 Gui, Add, Button, x10 y50 w180 h30, 최종평가테스트
-Gui, Add, Text, x200 y90 w180 h30, ver. 1107.1
+Gui, Add, Text, x200 y90 w180 h30, ver. 1212.15
 Gui, Show, x1000 y400 w300 h110, PC로 보기
 return
 
 compareQuestion(qSource, qTarget, len)
 {
+	;StringReplace, newVar, A_LoopField, `r, , All
+
 	Loop, % len
 	{
+		str := lecQuestion[A_Index]
+		logapp(str)
+		logapp(Clipboard)
 		if(InStr(lecQuestion[A_Index], Clipboard))
 		{
 			return lecAnswer[A_Index]
@@ -109,6 +54,41 @@ compareQuestion(qSource, qTarget, len)
 	}
 
 	return false
+}
+
+findQuestionText(index)
+{
+	str := % "index = " index "-findQuestionText"
+	logapp(str)
+
+	CoordMode mouse, screen
+
+	loop, % QText[index].length()
+	{
+		;logapp(QText[index][A_Index])
+		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, QText[index][A_Index]))
+		{
+			Clipboard := ""
+			logapp(ok[1][1])
+			logapp(ok[1][2])
+			qPositionX := ok[1][1]
+			qPositionY := ok[1][2]
+			sleep 1000
+			Mouseclick, left, ok[1][1], ok[1][2]
+			sleep 1000
+			Mouseclick, left, ok[1][1], ok[1][2]+60, 1, 10, D
+			sleep 100
+			Mouseclick, left, ok[1][1]+952, ok[1][2]+60, 1, 10, U
+			sleep 1000
+			send, ^{c}
+			str := % "문제 " index "번 찾았음-findQuestionText"
+			logapp(str)
+			return true
+		}
+	}
+
+	str := "문제 " %index% "번 못찾음-findQuestionText"
+	endapp(str)
 }
 
 ; 문제 블록지정 해서 찾기
@@ -197,22 +177,28 @@ clickNumber(answer)
 
 }
 
-clickAnswer(answer, index, rightA)
+clickAnswer(rightAnswer, index, verify)
 {
-	; answer 값이 1~4 가 아닐경우 주관식
-	tempVar := StrLen(answer)
+	QText1 := ["|<>*178$19.0000000000000001060U70M0UA0E6083041U20U10E0V0000000000000000E", "|<>*183$19.0000000000000001030k2UM0EA086043021U10k0UE0EU000000000000000E"]
+	QText2 := ["|<>*169$19.00000000000000010D0U4UM08A086043041U40U40E7t0000000000000000E", "|<>*162$19.0000000000000001070U4EM08A046043041U40U40E3sU000000000000000E"]
+	QText3 := ["|<>*169$19.00000000000000010D0U0kM08A0860M3031U0UU0kE7l0000000000000000E", "|<>*160$19.00000000000000010D0U0EM08A0460Q3011U0UU0EE3kU000000000000000E"]
+	QText4 := ["|<>*167$19.0000000000000001010U1UM1EA0860Y30W1UTUU0UE0F0000000000000000E", "|<>*176$19.000000000000000101UU1kM0cA0Y60W30F1UTkU0EE08U000000000000000E"]
 
-	if(tempVar = 2) ; 객관식 (중간평가)
+	;index = 1
+	testVar := % rightAnswer
+	testVar--
+	testVar++
+
+	str := % "verify = " verify "-clickAnswer"
+	logapp(str)
+
+	if(verify = "오답")
 	{
-		;index = 1
-		testVar := % answer
-		testVar--
-		testVar++
-
-		if(rightA = "오답")
+		if((testVar != 1) && (testVar != 2) && (testVar != 3) && (testVar != 4)) ; 주관식일 경우
+		{}
+		else
 		{
-			;MsgBox, "오답 입력"
-			Loop, 10
+			Loop, 10 ; 객관식 오답 입력
 			{
 				Random, rVar, 1, 4
 				if(testVar != rVar)
@@ -222,86 +208,61 @@ clickAnswer(answer, index, rightA)
 				}
 			}
 		}
-
-		if (testVar = 1) ; 1번 버튼 클릭
-		{
-			logapp("1번 클릭")
-			if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text1))
-					FindText().Click(ok[index].x, ok[index].y, "L")
-			else if(ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text1_1))
-			{
-				logapp("1_1번 클릭")
-				FindText().Click(ok[index].x, ok[index].y, "L")
-			}
-			else
-				logapp("1번 버튼을 못찾음")
-		}
-		else if (testVar = 2) ; 2번 버튼 클릭
-		{
-			logapp("2번 클릭")
-			if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text2))
-					FindText().Click(ok[index].x, ok[index].y, "L")
-			else if(ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text2_1))
-			{
-				logapp("2_1번 클릭")
-				FindText().Click(ok[index].x, ok[index].y, "L")
-			}
-			else
-				logapp("2번 버튼 못찾음")
-		}
-		else if (testVar = 3) ; 3번 버튼 클릭
-		{
-			logapp("3번 클릭")
-			if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text3))
-					FindText().Click(ok[index].x, ok[index].y, "L")
-			else if(ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text3_1))
-			{
-				logapp("3_1번 클릭")
-				FindText().Click(ok[index].x, ok[index].y, "L")
-			}
-			else
-				logapp("3번 버튼 못찾음")
-		}
-		else ; 4번 버튼 클릭
-		{
-			logapp("4번 클릭")
-			if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text4))
-					FindText().Click(ok[index].x, ok[index].y, "L")
-			else if(ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text4_1))
-			{
-				logapp("4_1번 클릭")
-				FindText().Click(ok[index].x, ok[index].y, "L")
-			}
-			else
-				logapp("4번 버튼 못찾음")
-		}
-
 	}
+
+	str := % "testVar = " testVar "-clickAnswer"
+	logapp(str)
+
+	qtextNum := []
+
+	if(testVar = 1)
+		qtextNum := QText1
+	else if(testVar = 2)
+		qtextNum := QText2
+	else if(testVar = 3)
+		qtextNum := QText3
+	else if(testVar = 4)
+		qtextNum := QText4
 	else ; 주관식
 	{
+		str := % "주관식(" rightAnswer "-clickAnswer"
+		logapp(str)
 		MouseClick, Left, qPositionX + 20, qPositionY + 20
 		sleep 1000
 		send, {Tab}
 		sleep 1000
 
-		if(rightA = "오답") ; 오답
+		if(verify = "오답") ; 오답
 		{
+			str := % "오답입력 [" wrongAnswer[rVar] "]"
+			logapp(str)
 			len := wrongAnswer.length()
-			Random, rbtn, 1, wrongAnswer.length()
-			Clipboard := wrongAnswer[rbtn]
+			Random, rVar, 1, wrongAnswer.length()
+			Clipboard := wrongAnswer[rVar]
 			send, % Clipboard
-
-			;send, % wrongAnswer[rbtn]
 			sleep, 1000
-
+			return
 		}
 		else ; 정답
 		{
-			Clipboard := answer
+			Clipboard := rightAnswer
 			send, % Clipboard
 			;send, % answer
 			sleep, 1000
+			return
 		}
+	}
+
+	loop, % qtextNum.length()
+	{
+		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, qtextNum[A_Index]))
+		{
+			logapp("답안 버튼 찾음-clickAnswer")
+			FindText().Click(ok[index].x, ok[index].y, "L")
+			break
+		}
+		else
+			logapp("답안 버튼 못찾음-clickAnswer")
 	}
 }
 
@@ -411,11 +372,11 @@ changeClickPoint(data)
 
 qaListInit()
 {
-	lastQuestionList := ["안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음"]
-	lastAnswerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
-	questionList := ["안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음"]
-	answerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
+	answerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
 	ansIndex := 1
+	lecQuestion := []
+	lecAnswer := []
+	wrongAnswer := []
 
 	; 오답리스트 읽기
 	FileRead, testVar, % dirTestPath "오답리스트.txt"
@@ -805,7 +766,7 @@ ImmGetDefaultIMEWnd(hWnd)
 
 logapp(err)
 {
-	FileAppend, [%A_Mon%/%A_MDay% %A_Hour%:%A_Min%:%A_Sec%][%err%] end`n, % dirPath "log.txt"
+	FileAppend, [%A_Mon%/%A_MDay% %A_Hour%:%A_Min%:%A_Sec%][%err%] log`n, % dirPath "log.txt"
 }
 
 endapp(err)
@@ -814,313 +775,6 @@ endapp(err)
 	SoundPlay, *-1
 	MsgBox, %err%
 	ExitApp
-}
-
-; 중간평가 시작
-middleTest()
-{
-	; 이미지 불러오기 (선형 탐색)
-	; MOTP 해야됨
-	sleep 1000
-	Run, "C:\Program Files\Microvirt\MEmu\MEmu.exe" MEmu ; 미뮤 실행
-	sleep 10000
-
-	Loop, 20
-	{
-		if(ok:=findImg("미뮤웨일아이콘.png", false))
-			break
-		sleep 1000
-	}
-
-	Sleep 1000
-	WinActivate, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기)
-	Sleep 1000
-	WinMove, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기),, 0,0,,
-
-	SetKeyDelay, 300
-
-	checkIME()
-
-	sleep 1000
-	FileEncoding, UTF-8
-	CoordMode, Mouse, Screen
-
-	; 아이디 읽기
-	FileRead, varfile, %dirPath%%vMiddleTestID%
-
-	idinfo := []
-	; 아이디.txt 파일 읽기, 아이디, 전화번호 구분, idinfo[1] = 이름, idinfo[2] = 아이디, idinfo[3] = 휴대폰번호
-	Loop, Parse, varfile, " "
-		idinfo[A_Index] := A_LoopField
-
-	checkPass = 1
-
-	if(!idinfo[1])
-		return
-
-	; 전화번호 파싱 -> phoneNum[1] = 010, phoneNum[2] = 두번째 폰번호, phoneNum[3] = 세번째 폰번호
-	phoneNum := transNum(idinfo[3])
-
-	idStr := % A_LoopField " 시작"
-	logapp(idStr)
-
-	clipboard =
-
-	; 미뮤 설정 시작
-	setMemu(phoneNum)
-
-	; 미뮤 초기화
-	memuInit()
-
-	; MOTP 설정
-	setMOTP(idinfo[1], phoneNum)
-
-	; kedu 로그인
-	loginKedu(idinfo[2])
-
-	WinActivate, 한국이러닝교육센터 - Chrome
-
-	; 강의 종류 만큼 루프
-	Loop, % lecList.length()
-	{
-		lecIndex = % A_Index
-		Loop, 10
-		{
-			if(ok:=findImg(lecList[lecIndex], true))
-			{
-				; 강의클릭 후 들어옴
-				sleep 2000
-				MouseClick WheelDown,,,4
-				sleep 1000
-
-				findBtn := false
-
-				; 중간평가 응시하기 버튼 있는지 확인
-				Loop, 20
-				{
-					if(ok:=findImg("중간평가평가응시버튼.png", true))
-					{
-						sleep 2000
-						if(ok:=findImg("진도율부족.bmp", false))
-						{
-							sleep 1000
-							clickImg("확인(인증).png")
-							sleep 1000
-							break
-						}
-
-						findBtn := true
-						break
-					}
-
-					MouseClick WheelDown,,,1
-					sleep 500
-				}
-
-				if(findBtn = false)
-					break ; 중간평가 준비 되지 않았음
-
-				sleep 3000
-				motp := 1
-
-				Loop, 2
-				{
-					; MOTP 인식
-					WinActivate, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기)
-					Sleep 1000
-					WinMove, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기),, 0,0,,
-					sleep 1000
-
-					MouseClick, Left, 262, 575, 2 ; MOTP 클립보드에 복사
-					sleep 2000
-
-					MouseClick, Left, 947, 731, 2 ; 크롬 OTP번호란 클릭
-					sleep 500
-					send, ^{v}
-					sleep 500
-					send, {Tab}
-
-
-					sleep 500
-					send, {Tab}
-					sleep 500
-					Send, {Enter} ; 인증하기 클릭
-					sleep 1000
-
-					; 오류 확인
-					if(ok:=findImg("MOTP오류확인.png", true))
-					{
-						; MOTP 틀림
-						if (motp = 2)
-						{
-							; MOTP 2번 틀림
-							endapp("MOTP 2번 틀림.  즉시 종료")
-						}
-						continue
-					}
-					else
-						break ; MOTP 맞음
-				}
-
-				Sleep 1000
-				MouseClick WheelDown,,,12
-				sleep 1000
-
-				clickImg("위사항을.png")
-
-				sleep 1000
-				Send, {Tab}
-				sleep 1000
-				Send, {Space}
-				sleep 3000
-
-				; 평가 재응시 불가능 팝업창
-				if (ok:=findImg("평가재응시.png", false))
-				{
-					clickImg("확인1.png")
-					sleep 2000
-				}
-				else
-					logapp("평가 재응시 불가능 팝업창 못찾음")
-
-				sleep 4000
-
-				; 중간평가 시작
-				qaListInit()
-				startTime := A_TickCount ; 시작시간 저장
-
-				; 오답수, 오답문제 설정
-				Random, wAnsNum, 1, 5
-
-				Loop, % wAnsNum
-				{
-					Random, wAns, 1, 10
-
-					if(answerList[wAns] = "오답") ; 이미 오답설정이 되어 있는 경우
-					{
-						wAnsNum--
-						continue
-					}
-					else
-						answerList[wAns] := "오답"
-				}
-
-				FileRead, testVar, % dirTestPath folderName[lecIndex] "-중간평가.txt"
-
-				Loop, Parse, testVar, `n
-				{
-					if(mod(A_Index,2))
-						lecQuestion.push(A_LoopField)
-					else
-						lecAnswer.push(A_LoopField)
-				}
-
-				; 중간평가 10문항, 최종평가 20~21문항
-				qTotal := 10 ; 이거 왜 안되지?
-
-				Loop, % qTotal
-				{
-					str := % "평가문제" A_Index ".bmp"
-
-					if(ok:=findQuestion(str))
-					{
-						if(ok:=compareQuestion(lecQuestion[A_Index], Clipboard, lecQuestion.Length()))
-						{
-							if(mod(A_Index,2)) ; 홀수
-								clickAnswer(ok, 1, answerList[ansIndex])
-							else ; 짝수
-							{
-								; 문제 풀이 후 다음문제 클릭
-								clickAnswer(ok, 2, answerList[ansIndex])
-								sleep 1000
-								clickImg("다음문제.png")
-								sleep 4000
-								if(ok:=findImg("마지막문제확인.png", true))
-								{
-									sleep 1000
-									break
-								}
-							}
-
-							ansIndex++
-							continue
-						}
-						else
-						{
-							str := % A_Index "번 문제 못찾음"
-							logapp(str)
-							break
-						}
-						sleep 500
-					}
-					else
-					{
-						str := % A_Index "번 문제번호 위치 못찾음"
-						endapp(str)
-					}
-				}
-
-				; 랜덤하기 대기 5분~7분
-				endTime := A_TickCount - startTime
-				Random, sleepTime, 300000, 420000
-
-				waitTime := sleepTime - endTime
-
-				Loop
-				{
-					if(waitTime > 0)
-					{
-						waitTime := waitTime - 10000
-						leftTime := waitTime / 1000
-						MsgBox,,, %leftTime%"초 남았음", 5
-						sleep 10000
-					}
-					else
-						break
-				}
-
-				clickImg("최종제출.png")
-
-				sleep 4000
-
-				; 최종 제출후 수정 안됨 확인
-				if (ok:=findImg("최종제출후수정안됨.png", false))
-				{
-					; 최종 확인 버튼 클릭
-					clickImg("확인2.png")
-					sleep 2000
-
-					clickImg("확인3.bmp")
-					sleep 2000
-
-				}
-
-				break ; 평가 완료
-			}
-			else
-				MouseClick WheelDown,,,1
-
-			sleep 500
-
-		}
-
-		; 탑으로 올라가서 로고 클릭 내강의실 클릭
-		sleep 1000
-		MouseClick WheelUp,,,50
-
-		; 로고 클릭
-		clickImg("로고.png")
-		Sleep 1000
-		waitLogo()
-
-		; 내 강의실 클릭
-		clickImg("내강의실.png")
-		sleep 2000
-
-	}
-
-	logout()
-
 }
 
 ; 최종평가 시작
@@ -1197,7 +851,7 @@ lastTest()
 			{
 				; 강의클릭 후 들어옴
 				sleep 2000
-				MouseClick WheelDown,,,4
+				MouseClick WheelDown,,,5
 				sleep 1000
 
 				findBtn := false
@@ -1303,6 +957,8 @@ lastTest()
 
 				; 오답수, 오답문제 설정
 				Random, wAnsNum, 1, 5
+				str := "오답수 = " wAnsNum "-main"
+				logapp(str)
 
 				Loop, % wAnsNum
 				{
@@ -1321,6 +977,8 @@ lastTest()
 
 				Loop, Parse, testVar, `n
 				{
+					;StringReplace, newVar, A_LoopField, `r, , All
+
 					if(mod(A_Index,2))
 						lecQuestion.push(A_LoopField)
 					else
@@ -1334,7 +992,8 @@ lastTest()
 				{
 					str := % "최종문제" A_Index ".bmp"
 
-					if(ok:=findQuestion(str))
+					;if(ok:=findQuestion(str))
+					if(ok:=findQuestionText(A_Index))
 					{
 						if(ok:=compareQuestion(lecQuestion[A_Index], Clipboard, lecQuestion.Length()))
 						{
@@ -1362,7 +1021,7 @@ lastTest()
 						}
 						else
 						{
-							str := % A_Index "번 문제 못찾음"
+							str := % A_Index "번 문제 못찾음(신규문제)-main"
 							logapp(str)
 							break
 						}
@@ -1370,7 +1029,7 @@ lastTest()
 					}
 					else
 					{
-						str := % A_Index "번 문제번호 위치 못찾음"
+						str := % A_Index "번 문제번호 위치 못찾음-main"
 						endapp(str)
 					}
 				}
@@ -1451,7 +1110,7 @@ logingTest()
 
 	sleep 1000
 
-	MouseClick WheelUp,,,10
+	MouseClick WheelUp,,,30
 
 	; 강의 종류 만큼 루프
 	Loop, % lecList.length()
@@ -1464,7 +1123,7 @@ logingTest()
 			{
 				; 강의클릭 후 들어옴
 				sleep 2000
-				MouseClick WheelDown,,,4
+				MouseClick WheelDown,,,5
 				sleep 1000
 
 				findBtn := false
@@ -1574,6 +1233,9 @@ logingTest()
 				; 오답수, 오답문제 설정
 				Random, wAnsNum, 1, 5
 
+				str := "오답수 = " wAnsNum "-main"
+				logapp(str)
+
 				Loop, % wAnsNum
 				{
 					Random, wAns, 1, 20
@@ -1591,6 +1253,8 @@ logingTest()
 
 				Loop, Parse, testVar, `n
 				{
+					;StringReplace, newVar, A_LoopField, `r, , All
+
 					if(mod(A_Index,2))
 						lecQuestion.push(A_LoopField)
 					else
@@ -1606,7 +1270,8 @@ logingTest()
 
 					str := % "최종문제" A_Index ".bmp"
 
-					if(ok:=findQuestion(str))
+					;if(ok:=findQuestion(str))
+					if(ok:=findQuestionText(A_Index))
 					{
 						if(ok:=compareQuestion(lecQuestion[A_Index], Clipboard, lecQuestion.Length()))
 						{
@@ -1637,7 +1302,7 @@ logingTest()
 						}
 						else
 						{
-							str := % A_Index "번 문제 못찾음"
+							str := % A_Index "번 문제 못찾음(신규문제)-main"
 							logapp(str)
 							break
 						}
@@ -1645,7 +1310,7 @@ logingTest()
 					}
 					else
 					{
-						str := % A_Index "번 문제번호 위치 못찾음"
+						str := % A_Index "번 문제번호 위치 못찾음-main"
 						endapp(str)
 					}
 				}
