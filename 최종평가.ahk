@@ -40,14 +40,18 @@ return
 
 compareQuestion(qSource, qTarget, len)
 {
-	;StringReplace, newVar, A_LoopField, `r, , All
+	StringReplace, targetVar, qTarget, `r`n, , All
+	logapp(targetVar)
 
 	Loop, % len
 	{
-		str := lecQuestion[A_Index]
+		tempVar := lecQuestion[A_Index]
+		StringReplace, sourceVar, tempVar, `r`n, , All
+
+		str := % "source = " sourceVar "-compareQuestion"
 		logapp(str)
-		logapp(Clipboard)
-		if(InStr(lecQuestion[A_Index], Clipboard))
+
+		if(InStr(sourceVar, targetVar))
 		{
 			return lecAnswer[A_Index]
 		}
@@ -78,7 +82,7 @@ findQuestionText(index)
 			sleep 1000
 			Mouseclick, left, ok[1][1], ok[1][2]+60, 1, 10, D
 			sleep 100
-			Mouseclick, left, ok[1][1]+952, ok[1][2]+60, 1, 10, U
+			Mouseclick, left, ok[1][1]+952, ok[1][2]+70, 1, 10, U
 			sleep 1000
 			send, ^{c}
 			str := % "문제 " index "번 찾았음-findQuestionText"
