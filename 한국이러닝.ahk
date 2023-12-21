@@ -1,16 +1,23 @@
 ﻿#Include <FindText>
 
-global vPatchNum := "1121.14"
+global vPatchNum := "1220.13"
 global vSanViewID := "산업.txt"
 global vKyeongViewID := "경비.txt"
 global vMustViewID := "의무.txt"
 global vJikmuViewID := "직무.txt"
 global dirPath := "C:\Users\user\Downloads\"
 global dirImgPath := "C:\Users\user\Downloads\image\"
-global lecName := ["보육법정24.png", "직장내성희롱.png", "직장내장애인.png", "직장내괴롭힘.png", "개인정보보호.png", "퇴직연금.png", "급여제공지침.png", "아동학대.png", "노인학대.png", "장애인학대.png", "고용노동부장애인.png", "관리감독자교육.bmp"]
+global lecName := ["직장내성희롱.png", "직장내장애인.png", "직장내괴롭힘.png", "개인정보보호.png", "퇴직연금.png", "급여제공지침.png", "아동학대.png", "노인학대.png", "장애인학대.png", "고용노동부장애인.png", "보육법정24.png", "관리감독자교육.bmp"]
 ; 휴대폰 디바이스 폰 모델명
 global deviceModel := ["SM-S908N", "SM-S901N", "SM-S906N", "SM-G977N", "SM-G973N", "SM-G975N", "SM-G970N", "SM-N971N", "SM-N976N", "SM-N970N", "SM-G965N", "SM-G965N", "SM-G960N", "SM-G965N", "SM-A908N", "SM-A805N", "SM-G9880", "SM-F721N", "SM-F700N", "SM-F711N", "SM-F731N", "SM-F946N", "SM-F936N", "SM-F926N", "SM-A245N", "SM-A346N", "SM-A546S", "SM-A536N", "SM-A136S"]
 global vRefreshDelay := 1000
+global QText1 := ["|<>*178$19.0000000000000001060U70M0UA0E6083041U20U10E0V0000000000000000E", "|<>*183$19.0000000000000001030k2UM0EA086043021U10k0UE0EU000000000000000E"]
+global QText2 := ["|<>*169$19.00000000000000010D0U4UM08A086043041U40U40E7t0000000000000000E", "|<>*162$19.0000000000000001070U4EM08A046043041U40U40E3sU000000000000000E"]
+global QText3 := ["|<>*169$19.00000000000000010D0U0kM08A0860M3031U0UU0kE7l0000000000000000E", "|<>*160$19.00000000000000010D0U0EM08A0460Q3011U0UU0EE3kU000000000000000E"]
+global QText4 := ["|<>*167$19.0000000000000001010U1UM1EA0860Y30W1UTUU0UE0F0000000000000000E", "|<>*176$19.000000000000000101UU1kM0cA0Y60W30F1UTkU0EE08U000000000000000E"]
+global Question6 := ["|<>*178$71.0000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s07k001U63yBk0zU0030A0APU1k0007zs0sr070000Dzk1Vi0A00000007TQ0vU000000Cys1zk00DzzkyBk3lU00TzzXiPU71U000A0CCr0A30000M0s9i0Q6000Mk1U3Q0MA000lU006s0sk001U000Bk0zU0030000PU0w0007zw00r000000Dzs00C0000000000000000000000000000000000000001", "|<>*177$71.00000000000000000000000000000000000007zk01a000000Tzk03A000000s3Vz6M03s001k73zAk0Tk003UC0ANU1k0007zw0Mn0700007zk1la0A00000003DA0Pk000000DSM0zk00DzzkyAk1lk00TzzXiNU31U000C0CCn063U000Q0sBa0A6000Ms0U3A0MA000lk006M0ss001U000Ak0zU0030000NU0y0007zw00n000000Dzs0060000000000000000000000000000000000000001"]
+;global TextQ6 := "|<>*153$41.000000000000000000000000000000000000000000zXmU00010Z0S0021+1007w5o000008c/U1zwdEMU043+UV008AJ1200E0+140000I3k0Ds0c000000000000000000000000000004"
+; "|<>*144$41.00000000000000000000000000000000000Tlw0000UU8070110U0E03y1M10000603k0zyA04E020Y08E0Y240E018000W020000s07y0000000000000000000000001"
 
 FileEncoding, UTF-8
 
@@ -33,29 +40,6 @@ Gui, 2:Add, Button, x10 y350 w560 h330, 3강
 Gui, 2:Add, Button, x580 y350 w560 h330, 4강
 
 return
-
-testText(imgFile)
-{
-	MouseMove, 10, 200
-
-	CoordMode pixel, screen
-
-	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 %dirImgPath%%imgFile%
-
-	CoordMode mouse, screen
-
-	if(ErrorLevel = 0)
-	{
-		MouseClick, Left, % FoundX+20, FoundY+20
-		return true
-	}
-	else
-	{
-		str := % imgFile " 이미지 못찾음"
-		endapp(str)
-		return false
-	}
-}
 
 clickOnemoreImg(imgFile)
 {
@@ -138,6 +122,38 @@ findImg(imgFile, isClick)
 	}
 }
 
+findImgText()
+{
+	MouseMove, 10, 200
+
+	sleep vRefreshDelay+100
+
+	TextQ6_1 := ["|<>*177$71.0000000000000000000000000000000000000Tz006M000001zz00Ak000003UC7wNU0DU0070QDwn01z000C0s0la070000Tzk1XA0Q0000Tz076M0k0000000Awk1j0000000xtU3z000zzz3sn077001zzyCta0A60000s0svA0MC0001k3UqM0kM001XU20Ak1Uk0037000NU3XU0060000n03y000A0001a03s000Tzk03A000000zzU00M0000000000000000000000000000000000000001","|<>*178$71.00000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ03s000k31z6s0Tk001U606Bk0s0003zw0QPU3U0007zs0kr0600000003ji0Rk0000007TQ0zs007zzsT6s1sk00DzzlrBk3Uk0006077PU61U000A0Q4r0C3000AM0k1i0A6000Mk003Q0QM000k0006s0Tk001U000Bk0S0003zy00PU000007zw0070000000000000000000000000000000000000001"]
+
+	loop, % TextQ6_1.length()
+	{
+		;logapp(QText[index][A_Index])
+		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, TextQ6_1[A_Index]))
+		{
+			logapp("문제6 이미지 찾음-findImgText")
+			return true
+		}
+	}
+
+	/*
+	if (ok:=FindText(X, Y, 295-150000, 156-150000, 295+150000, 156+150000, 0, 0, TextQ6_1))
+	{
+		logapp("문제6 이미지 찾음-findImgText")
+		return true
+	}
+	*/
+
+	logapp("문제6 이미지 못찾음-findImgText")
+
+	return false
+
+}
+
 clickRBtn(index)
 {
 	; 매우 그렇다 버튼 -> 수정
@@ -181,120 +197,122 @@ clickRBtn(index)
 ; 2문항 o,x 퀴즈 답안 입력
 clickTestBtn(index)
 {
+	; 문제 6 텍스트
+	TextQ6 := ["|<>*153$41.000000000000000000000000000000000000000000zXmU00010Z0S0021+1007w5o000008c/U1zwdEMU043+UV008AJ1200E0+140000I3k0Ds0c000000000000000000000000000004", "|<>*144$41.00000000000000000000000000000000000Tlw0000UU8070110U0E03y1M10000603k0zyA04E020Y08E0Y240E018000W020000s07y0000000000000000000000001"]
+
 	; 1. o -> 수정
-	;Text1o:="|<>*176$31.00000000000000000000000000300002U0000E0S0080NU0408E020480102400U1a00EUS00000000000000000000000000000000000004"
+	Text1o:="|<>*176$31.00000000000000000000000000300002U0000E0S0080NU0408E020480102400U1a00EUS00000000000000000000000000000000000004"
 
 	; 2. x -> 수정
-	;Text2x:="|<>*165$31.000000000000000000000000001k000140000208U0102U0101U0100E0100Q0100+00y88U0000000000000000000000000000000000004"
+	Text2x:="|<>*165$31.000000000000000000000000001k000140000208U0102U0101U0100E0100Q0100+00y88U0000000000000000000000000000000000004"
 
-	; 1번 -> 수정
-	;Text1:="|<>*176$33.0000003s0001zk000w7U0060A001U0k0kA060+300M0EM0302300M0EM0302300M0EA06021U0k0E60A000w7U001zk0003s000000004"
+	findQ6 := false
 
-	; 2번 -> 수정
-	;Text2:="|<>*171$33.0000003s0001zk000w7U0060A001U0k1kA060F300M08M0301300M0EM0304300M10A060E1U0k3s60A000w7U001zk0003s000000004"
-
-	; 3번 -> 수정
-	;Text3:="|<>*168$33.0000003s0001zk000Q700060A001U0k3kA0601300M08M0301300M1kM0301300M08A06011U0k3k60A000Q70001zk0003s000000004"
-
-	; 4번 -> 수정
-	;Text4:="|<>*175$33.0000003s0001zk000w7U0060A001U0k0MA0607300M0cM0309300M28M030F300M7wA06011U0k0860A000w7U001zk0003s000000004"
-
-	Text1:="|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,9/-1/FFC784,10/-1/000084,10/-2/FFFFC6,11/-1/C6C784,11/-2/840000,12/-2/52A6E7,16/6/FFC784,17/6/0055A5"
-	Text2:="|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,8/-1/FFFFE7,9/-1/A55584,9/-2/FFE3A5,10/-2/520000,12/-2/000084,13/-2/C6FFFF,13/0/840084,12/6/000000,14/6/A5E3FF,17/6/0055A5"
-	Text3:="|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,8/-2/FFFFE7,9/-2/A55500,10/-2/000000,12/-2/000052,13/-2/A5E3FF,14/-1/C6FFFF,13/-1/520084,10/2/840000,16/6/FFC784,17/6/0055A5,13/6/C6FFFF,8/6/FFE3A5,10/6/000000"
-	Text4:="|<>##0$0/0/565656,1/0/848484,1/-1/B7B7B7,8/4/C68200,9/4/000000,9/3/52A6E7,8/3/FFC784,9/2/C68252,10/1/8455A5,12/-2/840000,14/4/0055A5,12/6/FFC784,13/6/52A6E7,16/6/FFC784,17/6/0055A5"
-
-	;Text1:="|<>*207$17.000000000000600w00M00k01U0300600A00Mk00000000000000001" ; 1번
-	;Text2:="|<>*151$17.000000000000C00W00400800U0200800U01wE00000000000000001" ; 2번
-	;Text3:="|<>*149$17.000000000000000w00400800E0700100200403kU00000000000001" ; 3번
-	;Text4:="|<>*177$17.000000000000000600Q00c02E08U0F01z004008U00000000000001" ; 4번
-
-
-	if (ok:=FindText(X, Y, 566-150000, 658-150000, 566+150000, 658+150000, 0, 0, Text1o))
+	loop, % TextQ6.length()
 	{
-		; 3차시 문항일경우 OX 퀴즈
-		Random, rbtn, 1, 2
-
-		if (rbtn = 1) ; O 체크 버튼 클릭
+		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, TextQ6[A_Index]))
 		{
-			if (ok:=FindText(X, Y, 566-150000, 658-150000, 566+150000, 658+150000, 0, 0, Text1))
-			{
-				if !ok[index].x
-					FindText().Click(ok[1].x, ok[1].y, "L")
-				else
-					FindText().Click(ok[index].x, ok[index].y, "L")
-			}
-			else
-				endapp("1.O 버튼을 못찾음")
-		}
-		else ; X 체크 버튼 클릭
-		{
-			if (ok:=FindText(X, Y, 565-150000, 692-150000, 565+150000, 692+150000, 0, 0, Text2))
-			{
-				if !ok[index].x
-					FindText().Click(ok[1].x, ok[1].y, "L")
-				else
-					FindText().Click(ok[index].x, ok[index].y, "L")
-			}
-			else
-				endapp("2.X 버튼 못찾음")
+			findQ6 := true
+			break
 		}
 	}
-	else
+
+	if (findQ6 = true)
 	{
 		; 6차시 문항일경우 4지선다
 		Random, rbtn, 1, 4
 
 		if (rbtn = 1) ; 1번 버튼 클릭
 		{
-			if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, Text1))
+			loop, % QText1.length()
 			{
-				if !ok[index].x
-					FindText().Click(ok[1].x, ok[1].y, "L")
-				else
+				if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, QText1[A_Index]))
+				{
+					logapp("1번 버튼 찾음")
 					FindText().Click(ok[index].x, ok[index].y, "L")
+					break
+				}
+				else
+					logapp("1번 버튼을 못찾음")
 			}
-			else
-				logapp("1번 버튼을 못찾음")
 		}
 		else if (rbtn = 2) ; 2번 버튼 클릭
 		{
-			if (ok:=FindText(X, Y, 545-150000, 631-150000, 545+150000, 631+150000, 0, 0, Text2))
+			loop, % QText2.length()
 			{
-				if !ok[index].x
-					FindText().Click(ok[1].x, ok[1].y, "L")
-				else
+				if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, QText2[A_Index]))
+				{
+					logapp("2번 버튼 찾음")
 					FindText().Click(ok[index].x, ok[index].y, "L")
+					break
+				}
+				else
+					logapp("2번 버튼을 못찾음")
 			}
-			else
-				logapp("2번 버튼 못찾음")
 		}
 		else if (rbtn = 3) ; 3번 버튼 클릭
 		{
-			if (ok:=FindText(X, Y, 540-150000, 754-150000, 540+150000, 754+150000, 0, 0, Text3))
+			loop, % QText3.length()
 			{
-				if !ok[index].x
-					FindText().Click(ok[1].x, ok[1].y, "L")
-				else
+				if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, QText3[A_Index]))
+				{
+					logapp("3번 버튼 찾음")
 					FindText().Click(ok[index].x, ok[index].y, "L")
+					break
+				}
+				else
+					logapp("3번 버튼을 못찾음")
 			}
-			else
-				logapp("3번 버튼 못찾음")
 		}
 		else ; 4번 버튼 클릭
 		{
-			if (ok:=FindText(X, Y, 541-150000, 787-150000, 541+150000, 787+150000, 0, 0, Text4))
+			loop, % QText4.length()
 			{
-				if !ok[index].x
-					FindText().Click(ok[1].x, ok[1].y, "L")
-				else
+				if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, QText4[A_Index]))
+				{
+					logapp("4번 버튼 찾음")
 					FindText().Click(ok[index].x, ok[index].y, "L")
+					break
+				}
+				else
+					logapp("4번 버튼을 못찾음")
 			}
-			else
-				logapp("4번 버튼 못찾음")
 		}
 	}
+	else
+	{
+		; 3차시 문항일경우 OX 퀴즈
+		Random, rbtn, 1, 2
 
+		if (rbtn = 1) ; O 체크 버튼 클릭
+		{
+			loop, % QText1.length()
+			{
+				if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, QText1[A_Index]))
+				{
+					logapp("O 버튼 찾음")
+					FindText().Click(ok[index].x, ok[index].y, "L")
+					break
+				}
+				else
+					logapp("O 버튼을 못찾음")
+			}
+		}
+		else ; X 체크 버튼 클릭
+		{
+			loop, % QText2.length()
+			{
+				if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, QText2[A_Index]))
+				{
+					logapp("X 버튼 찾음")
+					FindText().Click(ok[index].x, ok[index].y, "L")
+					break
+				}
+				else
+					logapp("X 버튼을 못찾음")
+			}
+		}
+	}
 }
 
 checkIME()
@@ -397,9 +415,11 @@ setMemu(phoneNum)
 	WinMove, MEmu,, 0,0,,
 	sleep 2000
 	MouseClick, Left, 106, 193 ; 옵션 클릭
-	sleep 500
+	sleep 1000
+	MouseClick, Left, 421, 81 ; 디바이스모델 사용자화 클릭
+	sleep 1000
 	MouseClick, Left, 309, 111 ; 브랜드
-	sleep 500
+	sleep 1000
 	Send, ^{a}
 	sleep 500
 	send, Samsung
@@ -519,10 +539,10 @@ setMOTP(name, phoneNum)
 	sleep 700
 
 	clickImg("MOTP파랑확인.bmp")
-	sleep 1000
+	sleep 2000
 
 	clickImg("MOTP작은확인2.bmp")
-	sleep 1000
+	sleep 3000
 
 	clickImg("MOTP작은확인3.bmp")
 	sleep 1000
@@ -876,16 +896,20 @@ watchLecture(lecture)
 		sleep 3000
 
 		; 평가응시 버튼 클릭
-		if (ok:=findImg("평가응시.png", true))
-		{}
-			;clickImg("평가응시.png")
-		else
+		Loop, 10
 		{
-			; 이미 평가가 본 경우 혹은 버튼 못찾음
-			; endapp("평가응시 버튼 못찾음")
-			logapp("이미 평가 완료 됨, 혹은 평가응시 버튼 못찾음 -> 로그아웃")
-			logout()
-			continue
+			if (ok:=findImg("평가응시.png", true))
+				break
+			else
+				MouseClick WheelDown,,,1
+
+			if(A_Index = 10)
+			{
+				; 이미 평가가 본 경우 혹은 버튼 못찾음
+				; endapp("평가응시 버튼 못찾음")
+				logout()
+				endapp("이미 평가 완료 됨, 혹은 평가응시 버튼 못찾음 -> 로그아웃")
+			}
 		}
 
 		; 평가 시작
@@ -980,7 +1004,7 @@ watchLecture(lecture)
 		sleep 1000
 
 		; 3차시 과정은 평가문항이 5문항
-		if (ok:=findImg("문제6.png", false))
+		if (ok:=findImgText())
 		{
 			; 6번째 문항이 있을 경우
 			clickTestBtn(2) ; 문항 6 체크
@@ -1015,10 +1039,10 @@ watchLecture(lecture)
 		{
 			; 최종 확인 버튼 클릭
 			clickImg("확인2.png")
-			sleep 1000
+			sleep 3000
 
-			clickImg("확인3.png")
-			sleep 1000
+			clickImg("확인3.bmp")
+			sleep 3000
 
 		}
 
