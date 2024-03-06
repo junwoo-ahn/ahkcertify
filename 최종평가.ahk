@@ -6,9 +6,9 @@ global vLastTestID := "최종평가.txt"
 global dirPath := "C:\Users\user\Downloads\"
 global dirImgPath := "C:\Users\user\Downloads\image\"
 global dirTestPath := "C:\Users\user\Downloads\평가문제\"
-global lecList := ["직무-스마트워크.png", "직무-구해줘.png", "직무-디지털트랜스.png", "직무-평범한회사.png", "직무-헬스케어.png", "직무-주거서비스.png", "직무-X와MZ.png", "직무-기업의성공.png", "직무-디지털융합의중심.png", "직무-비대면시대.png"]
+global lecList := ["직무-데이터분석.png", "직무-데이터활용.png", "직무-헬스케어.png", "직무-기업의성공.png", "직무-스마트워크.png", "직무-구해줘.png", "직무-디지털트랜스.png", "직무-평범한회사.png", "직무-헬스케어.png", "직무-주거서비스.png", "직무-X와MZ.png", "직무-기업의성공.png", "직무-디지털융합의중심.png", "직무-비대면시대.png"]
 global deviceModel := ["SM-S908N", "SM-S901N", "SM-S906N", "SM-G977N", "SM-G973N", "SM-G975N", "SM-G970N", "SM-N971N", "SM-N976N", "SM-N970N", "SM-G965N", "SM-G965N", "SM-G960N", "SM-G965N", "SM-A908N", "SM-A805N", "SM-G9880", "SM-F721N", "SM-F700N", "SM-F711N", "SM-F731N", "SM-F946N", "SM-F936N", "SM-F926N", "SM-A245N", "SM-A346N", "SM-A546S", "SM-A536N", "SM-A136S"]
-global folderName := ["스마트워크", "구해줘", "디지털트랜스", "평범한회사", "헬스케어", "주거서비스", "x와mz", "기업의성공", "디지털융합", "비대면시대"]
+global folderName := ["데이터분석", "데이터활용", "헬스케어", "기업의성공",  "스마트워크", "구해줘", "디지털트랜스", "평범한회사", "헬스케어", "주거서비스", "x와mz", "기업의성공", "디지털융합", "비대면시대"]
 global CLICKPOINT := 20 ; default 20 평가 이미지들은 크기가 작아서 20포인트로 설정하면 잘못된 곳에 클릭이 됨.
 global answerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
 global lecQuestion := []
@@ -28,14 +28,24 @@ global Text3_1:="|<>*165$13.0000001s0601010300M04060y800000000001"
 global Text4_1:="|<>*162$13.00000004060500U2E281y0201400000000001"
 global QText := [["|<>*178$71.00000000000000000000000000000000000003zw00PU000007zs00r000000A0kTli01U000M1UzXQ070000k3036s0S0001zy0CBk0w0003zw0MPU0M0000001rr00k0000003ji01U003zzwDXQ030007zzsvas060000303Xhk0A000060C2PU0M0006A0M0r00k000AM001i01U000M0003Q030000k0006s060001zz00Bk000003zy003U000000000000000000000000000000000000001","|<>*177$71.00000000000000000000000000000000000000000000000007zk01a000000Tzk03A000000s3Vz6M030001k73zAk0C0003UC0ANU0w0007zw0Mn03M0007zk1la00k0000003DA01U000000DSM03000DzzkyAk06000TzzXiNU0A0000C0CCn00M0000Q0sBa00k000Ms0U3A01U000lk006M030001U000Ak0600030000NU0A0007zw00n000000Dzs0060000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000000TzU03Q000000zz006s000001U63yBk0y00030A7wPU3y00060M0Mr04C000Dzk1li00A000TzU33Q00M000000Cys01k000000Rxk03000TzzVwPU0C000zzz7Qr00s0000M0QRi01U0000k1kHQ060000lU306s0M0001X000Bk1k00030000PU7z00060000r0Dy000Dzs01i000000Tzk00Q0000000000000000000000000000000000000001","|<>*177$71.00000000000000000000000003zs00n000000Dzs01a000000Q1kzXA0DU000s3VzaM0zk001k706Ak1XU003zy0ANU030003zs0sn0060000001ba00A0000007jA00s007zzsT6M01U00DzzlrAk0600007077NU0Q0000C0Q6n01k000AQ0E1a030000Ms003A0A0000k0006M0zs001U000Ak1zk003zy00NU000007zw0030000000000000000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000Tz006M000001zz00Ak000003UC7wNU0y00070QDwn07y000C0s0la0AC000Tzk1XA00A000Tz076M00s000000Awk03U000000xtU0y000zzz3sn01w001zzyCta00Q0000s0svA00Q0001k3UqM00M001XU20Ak01k0037000NU2300060000n07y000A0001a07k000Tzk03A000000zzU00M0000000000000000000000000000000000000001","|<>*178$71.0000000000000000000000000000000000000TzU03Q000000zz006s000001U63yBk0y00030A7wPU3z00060M0Mr04C000Dzk1li00A000TzU33Q00M000000Cys01k000000Rxk0z000TzzVwPU1y000zzz7Qr00C0000M0QRi00A0000k1kHQ00M000lU306s00k001X000Bk33U0030000PU7y00060000r07s000Dzs01i000000Tzk00Q0000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000DzU03A000000zzU06M000001k73yAk03U003UC7yNU0700070Q0Mn00S000Dzs0la01g000DzU3XA03M0000006SM0Ak000000Swk0FU00TzzVwNU1X000zzz7Qn0660000Q0QRa0AA0000s1kPA0zy000lk106M1zw001XU00Ak01U0030000NU0300060000n006000Dzs01a000000Tzk00A0000000000000000000000000000000000000001","|<>*177$71.0000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s01U001U63yBk0700030A0APU0C0007zs0kr00w000Dzk1Vi03M0000007TQ04k000000Cys0NU00DzzkyBk1X000TzzXiPU360000A0CCr0AA0000M0s9i0Ty000Mk1U3Q1zw000lU006s01U001U000Bk0300030000PU060007zw00r000000Dzs00C0000000000000000000000000000000000000001"],["|<>*177$71.00000000000000000000000000000000000007zk01a000000Tzk03A000000s3Vz6M0Ts001k73zAk0zk003UC0ANU1U0007zw0Mn0300007zk1la0600000003DA0Tk000000DSM0zk00DzzkyAk1Vk00TzzXiNU01U000C0CCn0030000Q0sBa006000Ms0U3A00A000lk006M0ks001U000Ak1zU0030000NU1w0007zw00n000000Dzs0060000000000000000000000000000000000000001","|<>*178$71.0000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s0zk001U63yBk1zU0030A0APU300007zs0sr060000Dzk1Vi0A00000007TQ0TU000000Cys0zk00DzzkyBk1XU00TzzXiPU03U000A0CCr0070000M0s9i00C000Mk1U3Q00M000lU006s0Vk001U000Bk1z00030000PU1w0007zw00r000000Dzs00C0000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000Tz006M000001zz00Ak000003UC7wNU0DU0070QDwn01z000C0s0la070000Tzk1XA0Q0000Tz076M0k0000000Awk1j0000000xtU3z000zzz3sn077001zzyCta0A60000s0svA0MC0001k3UqM0kM001XU20Ak1Uk0037000NU3XU0060000n03y000A0001a03s000Tzk03A000000zzU00M0000000000000000000000000000000000000001","|<>*178$71.00000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ03s000k31z6s0Tk001U606Bk0s0003zw0QPU3U0007zs0kr0600000003ji0Rk0000007TQ0zs007zzsT6s1sk00DzzlrBk3Uk0006077PU61U000A0Q4r0C3000AM0k1i0A6000Mk003Q0QM000k0006s0Tk001U000Bk0S0003zy00PU000007zw0070000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000DzU03A000000zzU06M000001k73yAk1zk003UC7yNU3zU0070Q0Mn007000Dzs0la00A000DzU3XA00s0000006SM01U000000Swk03000TzzVwNU0A000zzz7Qn00M0000Q0QRa01k0000s1kPA030000lk106M060001XU00Ak0M00030000NU0k00060000n03U000Dzs01a000000Tzk00A0000000000000000000000000000000000000001","|<>*178$71.0000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s1zs001U63yBk3zU0030A0APU030007zs0sr00C000Dzk1Vi00M0000007TQ01k000000Cys03000DzzkyBk06000TzzXiPU0Q0000A0CCr00k0000M0s9i03U000Mk1U3Q060000lU006s0A0001U000Bk0s00030000PU1U0007zw00r000000Dzs00C0000000000000000000000000000000000000001"],["|<>*177$71.0000000000000000000000000000000000000Tz006M000001zz00Ak000003UC7wNU0y00070QDwn03y000C0s0la0CC000Tzk1XA0MA000Tz076M0kM000000Awk0vU000000xtU0y000zzz3sn01w001zzyCta0CC0000s0svA0MA0001k3UqM1kQ001XU20Ak1Us0037000NU3XU0060000n03z000A0001a03s000Tzk03A000000zzU00M0000000000000000000000000000000000000001","|<>*178$71.00000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ07k000k31z6s0zk001U606Bk1VU003zw0QPU73U007zs0kr0660000003ji0CQ0000007TQ0Dk007zzsT6s0TU00DzzlrBk1nU0006077PU73U000A0Q4r0A3000AM0k1i0M6000Mk003Q0sQ000k0006s0zk001U000Bk0S0003zy00PU000007zw0070000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000000TzU03Q000000zz006s000001U63yBk0S00030A7wPU3y00060M0Mr06C000Dzk1li0QA000TzU33Q0kA000000Cys1UM000000Rxk3Vk00TzzVwPU33U00zzz7Qr07z0000M0QRi03y0000k1kHQ00M000lU306s00k001X000Bk03U0030000PU3y00060000r07k000Dzs01i000000Tzk00Q0000000000000000000000000000000000000001","|<>*177$71.00000000000000000000000007zk01a000000Tzk03A000000s3Vz6M0DU001k73zAk0zU003UC0ANU3XU007zw0Mn0630007zk1la0A60000003DA0MA000000DSM0kM00DzzkyAk1lk00TzzXiNU1zU000C0CCn01v0000Q0sBa006000Ms0U3A00Q000lk006M01k001U000Ak1z00030000NU3w0007zw00n000000Dzs0060000000000000000000000000000000000000000000000000001"],["|<>*178$71.000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s060D01U63yBk0Q0z030A0APU1s3b07zs0sr03k660Dzk1Vi01UQ600007TQ030kA0000Cys061UMDzzkyBk0A30kTzzXiPU0M61U0A0CCr00kA300M0s9i01UQ60Mk1U3Q030MM0lU006s060tk1U000Bk0A0z030000PU0M0w07zw00r000000Dzs00C00000000000000000000000000000000000000001","|<>*177$71.0000000000000000000000003zs00n000000Dzs01a000000Q1kzXA01U7k0s3VzaM070Tk1k706Ak0S1lk3zy0ANU1g31U3zs0sn00M6300001ba00kA600007jA01UMA7zzsT6M030kQDzzlrAk061Us07077NU0A31U0C0Q6n00M630AQ0E1a00kA60Ms003A01UQQ0k0006M030Tk1U000Ak060T03zy00NU000007zw00300000000000000000000000000000000000000000000000000001"],["|<>*179$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ030300k31z6s0C0C01U606Bk0w0w03zw0QPU1s1s07zs0kr00k0k00003ji01U1U00007TQ030307zzsT6s06060DzzlrBk0A0A006077PU0M0M00A0Q4r00k0k0AM0k1i01U1U0Mk003Q030300k0006s060601U000Bk0A0A03zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ030DU0k31z6s0C0zU1U606Bk0w13U3zw0QPU1s0307zs0kr00k0600003ji01U0Q00007TQ0300k7zzsT6s0603UDzzlrBk0A0C006077PU0M0M00A0Q4r00k1U0AM0k1i01U600Mk003Q030Q00k0006s061zk1U000Bk0A3zU3zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ030DU0k31z6s0C0zk1U606Bk0w13U3zw0QPU1s0307zs0kr00k0600003ji01U0Q00007TQ030Dk7zzsT6s060TUDzzlrBk0A03U06077PU0M0300A0Q4r00k060AM0k1i01U0A0Mk003Q030ks0k0006s061zU1U000Bk0A1y03zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ0300k0k31z6s0C03U1U606Bk0w0703zw0QPU1s0S07zs0kr00k1g00003ji01U2M00007TQ030Ak7zzsT6s060lUDzzlrBk0A1X006077PU0M6600A0Q4r00kDz0AM0k1i01Uzy0Mk003Q0300k0k0006s0601U1U000Bk0A0303zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000000000000000007zs00r000000Dzk01i000000M1UzXQ030Ts0k31z6s0C0zk1U606Bk0w1U03zw0QPU1s3007zs0kr00k6000003ji01UDk00007TQ030Ts7zzsT6s060lkDzzlrBk0A01k06077PU0M03U0A0Q4r00k070AM0k1i01U0A0Mk003Q030Es0k0006s060zU1U000Bk0A0y03zy00PU000007zw00700000000000000000000000000000000000000001"],["|<>*178$71.000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s0607k1U63yBk0Q0zU30A0APU1s1k07zs0sr03k700Dzk1Vi01UA000007TQ030vU0000Cys061zkDzzkyBk0A3lUTzzXiPU0M71U0A0CCr00kA300M0s9i01UQ60Mk1U3Q030MA0lU006s060sk1U000Bk0A0zU30000PU0M0w07zw00r000000Dzs00C00000000000000000000000000000000000000001"],["|<>*178$71.000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s061zs1U63yBk0Q3zU30A0APU1s0307zs0sr03k0C0Dzk1Vi01U0M00007TQ0301k0000Cys06030DzzkyBk0A060TzzXiPU0M0Q00A0CCr00k0k00M0s9i01U3U0Mk1U3Q030600lU006s060A01U000Bk0A0s030000PU0M1U07zw00r000000Dzs00C00000000000000000000000000000000000000001"],["|<>*178$71.000000000000000000000000000000000000Dzk01i000000TzU03Q000000k31z6s060DU1U63yBk0Q1zU30A0APU1s3307zs0sr03kC70Dzk1Vi01UAA00007TQ030Qs0000Cys060TUDzzkyBk0A0z0TzzXiPU0M3b00A0CCr00kC700M0s9i01UM60Mk1U3Q030kA0lU006s061ks1U000Bk0A1zU30000PU0M0w07zw00r000000Dzs00C00000000000000000000000000000000000000001"],["|<>*178$71.0000000000000000000000007zs00r000000Dzk01i000000M1UzXQ0307U0k31z6s0C0zU1U606Bk0w1XU3zw0QPU1s7307zs0kr00kA300003ji01UM600007TQ030sQ7zzsT6s060ksDzzlrBk0A1zk06077PU0M0zU0A0Q4r00k060AM0k1i01U0A0Mk003Q0300s0k0006s060zU1U000Bk0A1w03zy00PU000007zw00700000000000000000000000000000000000000000000000000001"],["|<>*177$71.000000000000000000000000000000000000000000000000TzU03Q000000zz006s000001U63yBk0y0S030A7wPU3y1y060M0Mr04C7C0Dzk1Vi00AAA0TzU33Q00MsA0000Cys01lUM0000Rxk0330kTzzVwPU0C61Uzzz7Qr00sA300M0QRi01UM600k1kHQ060sA0lU306s0M0kk1X000Bk1k1nU30000PU7z1y060000r0Dy1s0Dzs01i000000Tzk00Q00000000000000000000000000001"]]
 
+global maxWrongAnswer := 4
+global minWrongAnswer := 1
+
 FileEncoding, UTF-8
 
-Gui, Add, Text, x200 y20 w180 h30,
-Gui, Add, Button, x10 y10 w180 h30, 로그인후보기
-Gui, Add, Text, x200 y60 w180 h30, 최종평가.txt
-Gui, Add, Button, x10 y50 w180 h30, 최종평가테스트
-Gui, Add, Text, x200 y90 w180 h30, ver. 1212.15
-Gui, Show, x1000 y400 w300 h110, PC로 보기
+Gui, font, s80
+Gui, Add, Button, x500 y10 w490 h480, 로그인후 보기
+Gui, Add, Button, x10 y10 w480 h480, 최종평가 테스트
+Gui, font, s30
+Gui, Add, Text, x20 y500 w380 h50, ver. 평가 틀린갯수
+Gui, Add, Radio, x400 y493 w100 h50 vR0, 0개
+Gui, Add, Radio, x500 y493 w100 h50 vR1, 1개
+Gui, Add, Radio, x600 y493 w100 h50 vR2, 2개
+Gui, Add, Radio, x700 y493 w100 h50 vR3, 3개
+Gui, Add, Radio, x800 y493 w100 h50 vR4 Checked, 4개
+Gui, Add, Radio, x900 y493 w100 h50 vR5, 5개
+Gui, Add, Text, x20 y550 w380 h50, ver. 0221.10
+Gui, Show, x500 y200 w1000 h600, PC로 보기
 return
 
 compareQuestion(qSource, qTarget, len)
@@ -48,11 +58,13 @@ compareQuestion(qSource, qTarget, len)
 		tempVar := lecQuestion[A_Index]
 		StringReplace, sourceVar, tempVar, `r`n, , All
 
-		str := % "source = " sourceVar "-compareQuestion"
+		str := % "source = " sourceVar "[compareQuestion]"
 		logapp(str)
 
 		if(InStr(sourceVar, targetVar))
 		{
+			str := % "return값 = " lecAnswer[A_Index] "[compareQuestion]"
+			logapp(str)
 			return lecAnswer[A_Index]
 		}
 	}
@@ -62,7 +74,7 @@ compareQuestion(qSource, qTarget, len)
 
 findQuestionText(index)
 {
-	str := % "index = " index "-findQuestionText"
+	str := % "index = " index "[findQuestionText]"
 	logapp(str)
 
 	CoordMode mouse, screen
@@ -85,13 +97,13 @@ findQuestionText(index)
 			Mouseclick, left, ok[1][1]+952, ok[1][2]+70, 1, 10, U
 			sleep 1000
 			send, ^{c}
-			str := % "문제 " index "번 찾았음-findQuestionText"
+			str := % "문제 " index "번 찾았음[findQuestionText]"
 			logapp(str)
 			return true
 		}
 	}
 
-	str := "문제 " %index% "번 못찾음-findQuestionText"
+	str := "문제 " %index% "번 못찾음[findQuestionText]"
 	endapp(str)
 }
 
@@ -584,14 +596,16 @@ loginKedu(keduID)
 setMemu(phoneNum)
 {
 	clickImg("미뮤설정.png")
-	sleep 1000
+	sleep 3000
 
 	WinMove, MEmu,, 0,0,,
-	sleep 500
+	sleep 2000
 	MouseClick, Left, 106, 193 ; 옵션 클릭
-	sleep 500
+	sleep 1000
+	MouseClick, Left, 421, 81 ; 디바이스모델 사용자화 클릭
+	sleep 1000
 	MouseClick, Left, 309, 111 ; 브랜드
-	sleep 500
+	sleep 1000
 	Send, ^{a}
 	sleep 500
 	send, Samsung
@@ -618,7 +632,6 @@ setMemu(phoneNum)
 
 	clickImg("미뮤설정확인2.png")
 	sleep 500
-
 }
 
 setMOTP(name, phoneNum)
@@ -632,45 +645,47 @@ setMOTP(name, phoneNum)
 	if(ok:=findImg("MOTP등록정보수정.bmp", true))
 	{
 		; 등록 초기화 시작
-		sleep 1000
+		sleep 500
 
 		; 등록 초기화 하시겠습니까? 확인 클릭 (작은 확인)
 		clickImg("MOTP작은확인.bmp")
-		sleep 1000
+		sleep 500
 
 		; 초기화 되었습니다. 확인 클릭 (작은 확인)
 		clickImg("MOTP작은확인3.bmp")
-		sleep 1000
+		sleep 500
 	}
 	else
 		logapp("MOTP 등록 초기화 버튼 못찾음, 이미 초기화 됨")
 
-	sleep 1000
+	sleep 500
 
 	; 개인정보수집 동의
 	clickImg("MOTP동의.bmp")
-	sleep 1000
+	sleep 500
 
 	; MOTP 이용 주의사항
 	clickImg("MOTP동의2.bmp")
-	sleep 1000
+	sleep 500
 
 	; 개인정보수집 동의함 라디오 버튼
 	clickImg("MOTP동의함.bmp")
-	sleep 1000
+	sleep 500
 
 	Loop, 10
 		MouseClick WheelDown,,,1
 
-	sleep 1000
+	sleep 500
 	MouseClick, Left, 281, 375
-	sleep 1000
+	sleep 500
 
 	; 입력 오류
 	send, 1234
 	sleep 500
 	Send, ^{a}
 	sleep 500
+	Send, {Backspace}
+	sleep 300
 	Send, {Backspace}
 	sleep 300
 	Send, {Backspace}
@@ -707,18 +722,14 @@ setMOTP(name, phoneNum)
 	MouseClick, Left, 12, 364
 	sleep 700
 
-	; MOTP 입력 확인 (파랑색 확인 버튼)
 	clickImg("MOTP파랑확인.bmp")
-	sleep 1000
+	sleep 2000
 
-	; 승인 요청하시겠습니까? (작은 확인 버튼)
 	clickImg("MOTP작은확인2.bmp")
-	sleep 1000
+	sleep 3000
 
-	; 승인이 완료되었습니다. 확인 클릭 (작은 확인)
 	clickImg("MOTP작은확인3.bmp")
 	sleep 1000
-
 }
 
 ; 휴대폰 번호 파싱
@@ -951,8 +962,14 @@ lastTest()
 				else
 					logapp("평가 재응시 불가능 팝업창 못찾음")
 
-				sleep 5000
-				MouseClick WheelDown,,,5
+
+				sleep 10000
+				Loop, 10
+				{
+					MouseClick WheelDown,,,5
+					if(findImg("다음문제.png", false))
+						break
+				}
 				sleep 1000
 
 				; 최종평가 시작
@@ -960,7 +977,7 @@ lastTest()
 				startTime := A_TickCount ; 시작시간 저장
 
 				; 오답수, 오답문제 설정
-				Random, wAnsNum, 1, 5
+				Random, wAnsNum, minWrongAnswer, maxWrongAnswer ; 오답수 최대값
 				str := "오답수 = " wAnsNum "-main"
 				logapp(str)
 
@@ -978,15 +995,30 @@ lastTest()
 				}
 
 				FileRead, testVar, % dirTestPath folderName[lecIndex] "-최종평가.txt"
+				StringReplace, newVar, testVar, `r`n, , All ; 엔터키 빼기
 
-				Loop, Parse, testVar, `n
+				chechIndex := 1
+				Loop, Parse, newVar, $$
 				{
-					;StringReplace, newVar, A_LoopField, `r, , All
+					if(A_LoopField)
+					{
+						str := % "push 값 =" A_LoopField ", Index = " chechIndex " [main]"
+						logapp(str)
 
-					if(mod(A_Index,2))
-						lecQuestion.push(A_LoopField)
-					else
-						lecAnswer.push(A_LoopField)
+						if(mod(chechIndex,2))
+						{
+							str := % "pushQuestion 값 =" A_LoopField "[main]"
+							logapp(str)
+							lecQuestion.push(A_LoopField)
+						}
+						else
+						{
+							str := % "pushAnswer 값 =" A_LoopField "[main]"
+							logapp(str)
+							lecAnswer.push(A_LoopField)
+						}
+						chechIndex ++
+					}
 				}
 
 				; 최종평가 20문항 (가끔 21문항 짜리도 있음)
@@ -1226,8 +1258,13 @@ logingTest()
 				else
 					logapp("평가 재응시 불가능 팝업창 못찾음")
 
-				sleep 5000
-				MouseClick WheelDown,,,5
+				sleep 10000
+				Loop, 10
+				{
+					MouseClick WheelDown,,,5
+					if(findImg("다음문제.png", false))
+						break
+				}
 				sleep 1000
 
 				; 최종평가 시작
@@ -1235,7 +1272,7 @@ logingTest()
 				startTime := A_TickCount ; 시작시간 저장
 
 				; 오답수, 오답문제 설정
-				Random, wAnsNum, 1, 5
+				Random, wAnsNum, minWrongAnswer, maxWrongAnswer ; 오답수 최대값
 
 				str := "오답수 = " wAnsNum "-main"
 				logapp(str)
@@ -1253,16 +1290,32 @@ logingTest()
 						answerList[wAns] := "오답"
 				}
 
+				; 답안지 파일 읽기
 				FileRead, testVar, % dirTestPath folderName[lecIndex] "-최종평가.txt"
+				StringReplace, newVar, testVar, `r`n, , All ; 엔터키 빼기
 
-				Loop, Parse, testVar, `n
+				chechIndex := 1
+				Loop, Parse, newVar, $$
 				{
-					;StringReplace, newVar, A_LoopField, `r, , All
+					if(A_LoopField)
+					{
+						str := % "push 값 =" A_LoopField ", Index = " chechIndex " [main]"
+						logapp(str)
 
-					if(mod(A_Index,2))
-						lecQuestion.push(A_LoopField)
-					else
-						lecAnswer.push(A_LoopField)
+						if(mod(chechIndex,2))
+						{
+							str := % "pushQuestion 값 =" A_LoopField "[main]"
+							logapp(str)
+							lecQuestion.push(A_LoopField)
+						}
+						else
+						{
+							str := % "pushAnswer 값 =" A_LoopField "[main]"
+							logapp(str)
+							lecAnswer.push(A_LoopField)
+						}
+						chechIndex ++
+					}
 				}
 
 				; 최종평가 20문항 (가끔 21문항 짜리도 있음)
@@ -1385,11 +1438,31 @@ logingTest()
 ; 중간평가 버튼
 Button로그인후보기:
 {
+	Gui, Submit, NoHide
+
+	if(R0)
+	{
+		minWrongAnswer := 0
+		maxWrongAnswer := 0
+		Random, wAnsNum, minWrongAnswer, maxWrongAnswer
+	}
+	else if(R1)
+		maxWrongAnswer := 1
+	else if(R2)
+		maxWrongAnswer := 2
+	else if(R3)
+		maxWrongAnswer := 3
+	else if(R4)
+		maxWrongAnswer := 4
+	else
+		maxWrongAnswer := 5
+
 	Gui, Minimize
 	Clipboard :=
 
 	logapp("시작")
 	logingTest()
+
 	endapp("테스트 종료")
 
 }
@@ -1397,6 +1470,25 @@ Button로그인후보기:
 ; 최종평가 버튼
 Button최종평가테스트:
 {
+	Gui, Submit, NoHide
+
+	if(R0)
+	{
+		minWrongAnswer := 0
+		maxWrongAnswer := 0
+		Random, wAnsNum, minWrongAnswer, maxWrongAnswer
+	}
+	else if(R1)
+		maxWrongAnswer := 1
+	else if(R2)
+		maxWrongAnswer := 2
+	else if(R3)
+		maxWrongAnswer := 3
+	else if(R4)
+		maxWrongAnswer := 4
+	else
+		maxWrongAnswer := 5
+
 	Gui, Minimize
 	Clipboard :=
 

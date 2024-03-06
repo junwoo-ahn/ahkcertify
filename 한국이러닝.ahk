@@ -1,6 +1,6 @@
 ﻿#Include <FindText>
 
-global vPatchNum := "1220.13"
+global vPatchNum := "0214.09"
 global vSanViewID := "산업.txt"
 global vKyeongViewID := "경비.txt"
 global vMustViewID := "의무.txt"
@@ -26,18 +26,24 @@ Gui, 1:Add, Button, x10 y10 w560 h330, 산업
 Gui, 1:Add, Button, x580 y10 w560 h330, 경비
 Gui, 1:Add, Button, x10 y350 w560 h330, 의무
 Gui, 1:Add, Button, x580 y350 w560 h330, 직무
+Gui, 1:font, s90
+Gui, 1:Add, Button, x1150 y10 w390 h330 gMotpBtn, MOTP입력
+Gui, 1:Add, Button, x1150 y350 w390 h330 gPatchBtn, 미뮤 패치
 Gui, 1:font, s20
-Gui, 1:Add, Button, x750 y690 w390 h80 gPatchBtn, 미뮤패치 ver:%vPatchNum%
-Gui, 1:Add, Text, x10 y690 w700 h30, 산업 : 산업.txt   경비 : 경비.txt   의무 : 의무.txt   직무 : 직무.txt
+Gui, 1:Add, Text, x1150 y690 w330 h30, 미뮤 ver:%vPatchNum%
+Gui, 1:Add, Text, x10 y690 w900 h30, 산업 : 산업.txt   경비 : 경비.txt   의무 : 의무.txt   직무 : 직무.txt
 Gui, 1:Add, ListBox, x10 y730 w80 h20 vDelayLBox Choose5, 0|0.5|1|1.5|2|2.5|3|3.5|4|4.5|5|5.5|6
 Gui, 1:Add, Text, x100 y730 w300 h30, 초 딜레이 추가
-Gui, 1:Show, x360 y160 w1150 h780, PC로 보기
+Gui, 1:Show, x100 y100 w1550 h780, PC로 보기
 
 Gui, 2:font, s200
 Gui, 2:Add, Button, x10 y10 w560 h330, 1강
 Gui, 2:Add, Button, x580 y10 w560 h330, 2강
 Gui, 2:Add, Button, x10 y350 w560 h330, 3강
 Gui, 2:Add, Button, x580 y350 w560 h330, 4강
+
+Gui, 3:font, s200
+Gui, 3:Add, Button, x10 y10 w680 h680, 패치완료
 
 return
 
@@ -96,6 +102,34 @@ findImg(imgFile, isClick)
 {
 	MouseMove, 10, 200
 
+	sleep vRefreshDelay+100
+
+	CoordMode pixel, screen
+
+	ImageSearch, FoundX, FoundY, 0,0, A_ScreenWidth, A_ScreenHeight, *40 %dirImgPath%%imgFile%
+
+	CoordMode mouse, screen
+
+	if(ErrorLevel = 0)
+	{
+		str := % imgFile " 이미지 찾음 (findImg)"
+
+		if (isClick = true)
+			MouseClick, Left, % FoundX+20, FoundY+20
+
+		logapp(str)
+		return true
+	}
+	else
+	{
+		str := % imgFile " 이미지 못찾음 (findImg)"
+		logapp(str)
+		return false
+	}
+}
+
+findImgNoneMove(imgFile, isClick)
+{
 	sleep vRefreshDelay+100
 
 	CoordMode pixel, screen
@@ -723,6 +757,25 @@ motpInit() ; motp 한글입력 오류 수정
 	Sleep 1000
 }
 
+endLecture()
+{
+	Loop
+	{
+		if (ok:=findImg("학습종료.png", true))
+		{
+			break
+		}
+		else if(ok:=findImg("다시보기.bmp", false))
+		{
+			clickImg("학습중지.bmp")
+			break
+		}
+
+		sleep 30000
+	}
+}
+
+
 ; 산업안전, 경비직무 모듈
 watchLecture(lecture)
 {
@@ -895,6 +948,12 @@ watchLecture(lecture)
 		logapp("수강 완료 - 평가 시작")
 		sleep 3000
 
+		if (lecture = "산업안전")
+		{
+			logout()
+			break
+		}
+
 		; 평가응시 버튼 클릭
 		Loop, 10
 		{
@@ -913,7 +972,7 @@ watchLecture(lecture)
 		}
 
 		; 평가 시작
-		sleep 2000
+		sleep 10000
 
 		; 설문 완료 되었는지 확인
 		if (ok:=findImg("최종평가유의사항.png", true))
@@ -1083,10 +1142,11 @@ watchMustLecture(lecture)
 		; 아이디 입력창 검색
 		clickImg("아이디.png")
 
-		RegEx := RegExReplace(varfile, "\D")
+		;RegEx := RegExReplace(varfile, "\D")
 
 		sleep 500
-		Send, % RegEx
+		Send, % varfile
+		;Send, % RegEx ; 아이디 앞에 k를 인식하지 못함
 		Send, {Tab}
 		sleep 500
 
@@ -1133,84 +1193,115 @@ watchMustLecture(lecture)
 	sleep 3000
 	logapp(A_LoopField)
 
-	Loop, % lecName.Length()
+	Loop, 15 ; 15개 강의까지 보도록 반복
+	;Loop, % lecName.Length()
 	{
+		MouseClick WheelUp,,,50
+		sleep 1000
+
 		; 내 강의실 클릭
 		clickImg("내강의실.png")
-		sleep 1000
+		sleep 5000
 
 		indexLec := A_Index
 
-		; 과정 찾기
-		Loop, 20
-		{
-			if (ok:=findImg(lecName[indexLec], true))
-				break
-			else
-				MouseClick WheelDown,,,1
+		; 첫번째 강의 마우스 포인터 위치 = 1000, 600
+		; 두번째 강의 마우스 포인터 위치 = 1000, 755
+		; 세번째 강의 마우스 포인터 위치 = 1000, 896
 
-			sleep 500
+		if(A_Index = 1)
+		{
+			MouseClick, Left, 1000, 600
+		}
+		else if(A_Index = 2)
+		{
+			MouseClick, Left, 1000, 755
+		}
+		else if(A_Index = 3)
+		{
+			MouseClick, Left, 1000, 896
+		}
+		else
+		{
+			loopIndex := A_Index - 3
+			loop, % loopIndex
+			{
+				Send, {Down}
+				sleep 500
+				Send, {Down}
+				sleep 500
+				Send, {Down}
+				sleep 500
+				Send, {Down}
+				sleep 500
+			}
+			MouseClick, Left, 1000, 896
 		}
 
-		sleep 2000
-		MouseClick WheelDown,,,8
-		sleep 2000
+		sleep 3000
 
-		Loop, 25 ; 보육법정 24차시
+		; 검증단계
+		if(ok:=findImgNoneMove("사업주훈련제목.bmp", false))
+		{
+			continue
+		}
+		else if(ok:=findImgNoneMove("산업안전타이틀(선택).bmp", false))
+		{
+			continue
+		}
+		else if(ok:=findImgNoneMove("경비직무타이틀(선택).bmp", false))
+		{
+			continue
+		}
+
+		isLongLec := false ; 급여제공, 어린이집 24 일 경우 true
+
+		if(ok:=findImgNoneMove("급여제공지침(선택).bmp", false))
+		{
+			isLongLec := true
+		}
+
+		sleep 3000
+		MouseClick WheelDown,,,10
+
+		Loop, 5 ; 4차시 이상은 긴 강의로 적용
 		{
 			; 이어보기 버튼 클릭 - 이어보기 버튼이 활성화 되어 있을 때에는 이어보기가 우선
 			if (ok:=findImg("이어보기.png", true))
 			{
 				; 이어보기 버튼 클릭
-				sleep 30000 ; 서버에 수강완료 데이터가 전송되는 시간 딜레이타임
+				sleep 5000 ; 서버에 수강완료 데이터가 전송되는 시간 딜레이타임
+				endLecture()
 			}
 			else if (ok:=findImg("수강하기.png", true))
 			{
 				; 수강하기 버튼 클릭
+				endLecture()
 			}
 			else
 			{
 				; 볼 수 있는 과정 없음. 스크롤 내림
 				logapp("볼 수 있는 과정 없음. 스크롤 내림")
-				sleep 500
-				MouseClick WheelDown,,,1
-				sleep 500
 
-				continue
+				if(isLongLec)
+				{
+					logapp("급여제공지침 강의 들어옴")
+					MouseClick WheelDown,,,10
+					sleep 1000
+					continue
+				}
+				break
 			}
 
 			sleep 3000
 
-			; 수강 시작
-			logapp("수강 시작")
+			; 수강 종료
+			logapp("수강종료")
 
-			Loop
-			{
-				if (ok:=findImg("학습종료.png", true))
-				{
-					;clickImg("학습종료.png")
-					break
-				}
-				else if(ok:=findImg("다시보기.bmp", false))
-				{
-					clickImg("학습중지.bmp")
-					break
-				}
-
-				sleep 30000
-			}
-
-			sleep 10000
+			sleep 20000 ; 서버에 수강완료 데이터가 전송되는 시간 딜레이타임
 		}
 
 		logapp("수강 완료 - 다음과정 진행")
-
-		MouseClick WheelUp,,,50
-		sleep 500
-		clickImg("로고.png")
-		Sleep 1000
-		waitLogo()
-		sleep 3000
 	}
 
 	logout()
@@ -1356,17 +1447,6 @@ Button의무:
 	GuiControlGet, delay,,DelayLBox
 	vRefreshDelay := delay*1000
 
-	/*
-	Gui, Minimize
-	sleep 1000
-	if (ok:=findImg("보육법정24.png", false))
-		MsgBox, 보육 찾았음
-	else
-		MsgBox, 보육 못찾음
-
-	ExitApp
-	*/
-
 	watchMustLecture("의무교육")
 
 	endapp("전체 완료\n에그를 끄세요!")
@@ -1502,8 +1582,112 @@ Button직무:
 
 }
 
+MotpBtn:
+{
+	Gui, Minimize
+
+	sleep 1000
+	WinMove, (미뮤 앱플레이어 - memu1.ova 을 (를) 불러오기),, 0,0,,
+	sleep 1000
+
+	; 아이디 읽기
+	FileRead, varfile, %dirPath%%vJikmuViewID%
+
+	idinfo := []
+	; 아이디.txt 파일 읽기, 아이디, 전화번호 구분, idinfo[1] = 이름, idinfo[2] = 아이디, idinfo[3] = 휴대폰번호
+	Loop, Parse, varfile, " "
+		idinfo[A_Index] := A_LoopField
+
+	checkPass = 1
+
+	if(!idinfo[1])
+		return
+
+	; 전화번호 파싱 -> phoneNum[1] = 010, phoneNum[2] = 두번째 폰번호, phoneNum[3] = 세번째 폰번호
+	phoneNum := transNum(idinfo[3])
+
+	idStr := % A_LoopField " 시작"
+	logapp(idStr)
+
+	CoordMode, Mouse, Screen
+
+	sleep 1000
+	SetKeyDelay, 300
+
+	; 개인정보수집 동의함 라디오 버튼
+	clickImg("MOTP동의함.bmp")
+	sleep 500
+
+	Loop, 10
+		MouseClick WheelDown,,,1
+
+	sleep 500
+	MouseClick, Left, 281, 375
+	sleep 500
+
+	; 입력 오류
+	send, 1234
+	sleep 500
+	Send, ^{a}
+	sleep 500
+	Send, {Backspace}
+	sleep 300
+	Send, {Backspace}
+	sleep 300
+	Send, {Backspace}
+	sleep 300
+	Send, {Backspace}
+	sleep 300
+	Send, {Backspace}
+	sleep 500
+
+	Send, % idinfo[1]
+	sleep 500
+	send, {Tab}
+	sleep 500
+	send, {Tab}
+	sleep 500
+	send, % phoneNum[2]
+	sleep 500
+	send, {Tab}
+	sleep 500
+	send, % phoneNum[3]
+	sleep 500
+	send, {Tab}
+	sleep 500
+	send, 1
+	sleep 700
+	send, 1
+	sleep 700
+	send, 1
+	sleep 700
+	send, 1
+	sleep 700
+	send, 1
+	sleep 700
+	MouseClick, Left, 12, 364
+	sleep 700
+
+	clickImg("MOTP파랑확인.bmp")
+	sleep 2000
+
+	clickImg("MOTP작은확인2.bmp")
+	sleep 3000
+
+	clickImg("MOTP작은확인3.bmp")
+	sleep 1000
+
+	endapp("MOTP 세팅완료")
+
+}
+
 PatchBtn:
 {
+	Gui, submit, nohide
+	GuiControlGet, delay,,DelayLBox
+	vRefreshDelay := delay*1000
+	Gui, Minimize
+
 	sleep 2000
 	Run, "C:\Program Files\Microvirt\MEmu\MEmuConsole.exe" ; 미뮤 멀티 실행
 	sleep 5000
@@ -1540,6 +1724,7 @@ PatchBtn:
 
 	Loop, 30
 	{
+
 		if(ok:=findImg("미뮤멀티실행버튼.bmp", false))
 			break
 		sleep 1000
@@ -1549,9 +1734,17 @@ PatchBtn:
 	WinClose, 미뮤 멀티
 	sleep 1000
 
-	MsgBox, 패치 완료
+	Gui, 3:show, x380 y180 w700 h700, 패치완료
+
+	sleep 50000000
+
+	;MsgBox, 패치 완료
 }
 
+3Button패치완료:
+{
+	ExitApp
+}
 
 GuiClose:
 ExitApp

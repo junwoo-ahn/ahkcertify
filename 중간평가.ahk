@@ -6,9 +6,9 @@ global vLastTestID := "최종평가.txt"
 global dirPath := "C:\Users\user\Downloads\"
 global dirImgPath := "C:\Users\user\Downloads\image\"
 global dirTestPath := "C:\Users\user\Downloads\평가문제\"
-global lecList := ["직무-스마트워크.png", "직무-구해줘.png", "직무-디지털트랜스.png", "직무-평범한회사.png", "직무-헬스케어.png", "직무-주거서비스.png", "직무-X와MZ.png", "직무-기업의성공.png", "직무-디지털융합의중심.png", "직무-비대면시대.png"]
+global lecList := ["직무-데이터분석.png", "직무-데이터활용.png", "직무-스마트워크.png", "직무-구해줘.png", "직무-디지털트랜스.png", "직무-평범한회사.png", "직무-헬스케어.png", "직무-주거서비스.png", "직무-X와MZ.png", "직무-기업의성공.png", "직무-디지털융합의중심.png", "직무-비대면시대.png"]
 global deviceModel := ["SM-S908N", "SM-S901N", "SM-S906N", "SM-G977N", "SM-G973N", "SM-G975N", "SM-G970N", "SM-N971N", "SM-N976N", "SM-N970N", "SM-G965N", "SM-G965N", "SM-G960N", "SM-G965N", "SM-A908N", "SM-A805N", "SM-G9880", "SM-F721N", "SM-F700N", "SM-F711N", "SM-F731N", "SM-F946N", "SM-F936N", "SM-F926N", "SM-A245N", "SM-A346N", "SM-A546S", "SM-A536N", "SM-A136S"]
-global folderName := ["스마트워크", "구해줘", "디지털트랜스", "평범한회사", "헬스케어", "주거서비스", "x와mz", "기업의성공", "디지털융합", "비대면시대"]
+global folderName := ["데이터분석", "데이터활용", "스마트워크", "구해줘", "디지털트랜스", "평범한회사", "헬스케어", "주거서비스", "x와mz", "기업의성공", "디지털융합", "비대면시대"]
 global CLICKPOINT := 20 ; default 20 평가 이미지들은 크기가 작아서 20포인트로 설정하면 잘못된 곳에 클릭이 됨.
 global questionList := ["안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음", "안했음"]
 global answerList := ["정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답", "정답"]
@@ -30,11 +30,12 @@ global QText := [["|<>*178$71.00000000000000000000000000000000000003zw00PU000007
 
 FileEncoding, UTF-8
 
+Gui, font, s100
 Gui, Add, Text, x200 y20 w180 h30, 중간평가.txt
-Gui, Add, Button, x10 y10 w180 h30, 중간평가테스트
+Gui, Add, Button, x10 y10 w570 h780, 중간평가테스트
 Gui, Add, Text, x200 y60 w180 h30,
-Gui, Add, Button, x10 y50 w180 h30, 로그인후보기
-Gui, Show, x1000 y400 w300 h110, PC로 보기
+Gui, Add, Button, x600 y10 w570 h780, 로그인후보기
+Gui, Show, x100 y50 w1200 h800, PC로 보기
 return
 
 compareQuestion(qSource, qTarget, len)
@@ -888,7 +889,14 @@ middleTest()
 				else
 					logapp("평가 재응시 불가능 팝업창 못찾음")
 
-				sleep 4000
+				sleep 10000
+				Loop, 10
+				{
+					MouseClick WheelDown,,,5
+					if(findImg("다음문제.png", false))
+						break
+				}
+				sleep 1000
 
 				; 중간평가 시작
 				qaListInit()
@@ -1143,7 +1151,14 @@ logingTest()
 				else
 					logapp("평가 재응시 불가능 팝업창 못찾음-main")
 
-				sleep 4000
+				sleep 10000
+				Loop, 10
+				{
+					MouseClick WheelDown,,,5
+					if(findImg("다음문제.png", false))
+						break
+				}
+				sleep 1000
 
 				; 중간평가 시작
 				qaListInit()
@@ -1165,14 +1180,27 @@ logingTest()
 						answerList[wAns] := "오답"
 				}
 
+				logapp("평가문제 입력 시작[main]")
 				FileRead, testVar, % dirTestPath folderName[lecIndex] "-중간평가.txt"
+				logapp(testVar)
 
 				Loop, Parse, testVar, `n
 				{
+					str := % "A_LoopField 값 =" A_LoopField "[main]"
+					logapp(str)
+
 					if(mod(A_Index,2))
+					{
+						str := % "pushQuestion 값 =" A_LoopField "[main]"
+						logapp(str)
 						lecQuestion.push(A_LoopField)
+					}
 					else
+					{
+						str := % "pushAnswer 값 =" A_LoopField "[main]"
+						logapp(str)
 						lecAnswer.push(A_LoopField)
+					}
 				}
 
 				; 중간평가 10문항, 최종평가 20~21문항
