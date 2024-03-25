@@ -1,6 +1,6 @@
 ﻿#Include <FindText>
 
-global vPatchNum := "0214.09"
+global vPatchNum := "0315.10"
 global vSanViewID := "산업.txt"
 global vKyeongViewID := "경비.txt"
 global vMustViewID := "의무.txt"
@@ -46,6 +46,31 @@ Gui, 3:font, s200
 Gui, 3:Add, Button, x10 y10 w680 h680, 패치완료
 
 return
+
+waiting()
+{
+	waitTime := 2400000 ; 40분
+	leftTime := waitTime / 1000
+
+	Loop
+	{
+		if(waitTime > 0)
+		{
+			MsgBox, 4, 시청대기, %leftTime%초 남았음. `n계속 기다릴까요?, 5
+			IfMsgBox, No
+				break
+
+			waitTime := waitTime - 10000
+			leftTime := waitTime / 1000
+			sleep 10000
+		}
+		else
+			break
+	}
+
+	sleep 3000
+
+}
 
 clickOnemoreImg(imgFile)
 {
@@ -757,6 +782,164 @@ motpInit() ; motp 한글입력 오류 수정
 	Sleep 1000
 }
 
+compareQuestion(qSource, qTarget, len)
+{
+	StringReplace, targetVar, qTarget, `r`n, , All
+	logapp(targetVar)
+
+	Loop, % len
+	{
+		tempVar := lecQuestion[A_Index]
+		StringReplace, sourceVar, tempVar, `r`n, , All
+
+		str := % "source = " sourceVar "[compareQuestion]"
+		logapp(str)
+
+		if(InStr(sourceVar, targetVar))
+		{
+			str := % "return값 = " lecAnswer[A_Index] "[compareQuestion]"
+			logapp(str)
+			return lecAnswer[A_Index]
+		}
+	}
+
+	return false
+}
+
+findQuestionText(index)
+{
+	str := % "index = " index "[findQuestionText]"
+	logapp(str)
+
+	CoordMode mouse, screen
+
+	loop, % QText[index].length()
+	{
+		;logapp(QText[index][A_Index])
+		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, QText[index][A_Index]))
+		{
+			Clipboard := ""
+			logapp(ok[1][1])
+			logapp(ok[1][2])
+			qPositionX := ok[1][1]
+			qPositionY := ok[1][2]
+			sleep 1000
+			Mouseclick, left, ok[1][1], ok[1][2]
+			sleep 1000
+			Mouseclick, left, ok[1][1], ok[1][2]+60, 1, 10, D
+			sleep 100
+			Mouseclick, left, ok[1][1]+952, ok[1][2]+70, 1, 10, U
+			sleep 1000
+			send, ^{c}
+			str := % "문제 " index "번 찾았음[findQuestionText]"
+			logapp(str)
+			return true
+		}
+	}
+
+	str := "문제 " %index% "번 못찾음[findQuestionText]"
+	endapp(str)
+}
+
+clickAnswer(rightAnswer, index, verify)
+{
+	QText1 := ["|<>*178$19.0000000000000001060U70M0UA0E6083041U20U10E0V0000000000000000E", "|<>*183$19.0000000000000001030k2UM0EA086043021U10k0UE0EU000000000000000E"]
+	QText2 := ["|<>*169$19.00000000000000010D0U4UM08A086043041U40U40E7t0000000000000000E", "|<>*162$19.0000000000000001070U4EM08A046043041U40U40E3sU000000000000000E"]
+	QText3 := ["|<>*169$19.00000000000000010D0U0kM08A0860M3031U0UU0kE7l0000000000000000E", "|<>*160$19.00000000000000010D0U0EM08A0460Q3011U0UU0EE3kU000000000000000E"]
+	QText4 := ["|<>*167$19.0000000000000001010U1UM1EA0860Y30W1UTUU0UE0F0000000000000000E", "|<>*176$19.000000000000000101UU1kM0cA0Y60W30F1UTkU0EE08U000000000000000E"]
+
+	testVar := % rightAnswer
+	testVar--
+	testVar++
+
+	str := % "verify = " verify "-clickAnswer"
+	logapp(str)
+
+	if(verify = "오답")
+	{
+		if((testVar != 1) && (testVar != 2) && (testVar != 3) && (testVar != 4)) ; 주관식일 경우
+		{}
+		else
+		{
+			Loop, 10 ; 객관식 오답 입력
+			{
+				Random, rVar, 1, 4
+				if(testVar != rVar)
+				{
+					testVar := rVar
+					break
+				}
+			}
+		}
+	}
+
+	str := % "testVar = " testVar "-clickAnswer"
+	logapp(str)
+
+	qtextNum := []
+
+	if(testVar = 1)
+		qtextNum := QText1
+	else if(testVar = 2)
+		qtextNum := QText2
+	else if(testVar = 3)
+		qtextNum := QText3
+	else if(testVar = 4)
+		qtextNum := QText4
+	else ; 주관식
+	{
+		str := % "주관식(" rightAnswer "-clickAnswer"
+		logapp(str)
+		MouseClick, Left, qPositionX + 20, qPositionY + 20
+		sleep 1000
+		send, {Tab}
+		sleep 1000
+
+		if(verify = "오답") ; 오답
+		{
+			str := % "오답입력 [" wrongAnswer[rVar] "]"
+			logapp(str)
+			len := wrongAnswer.length()
+			Random, rVar, 1, wrongAnswer.length()
+			Clipboard := wrongAnswer[rVar]
+			send, % Clipboard
+			sleep, 1000
+			return
+		}
+		else ; 정답
+		{
+			Clipboard := rightAnswer
+			send, % Clipboard
+			;send, % answer
+			sleep, 1000
+			return
+		}
+	}
+
+	loop, % qtextNum.length()
+	{
+		if (ok:=FindText(X, Y, 544-150000, 876-150000, 544+150000, 876+150000, 0, 0, qtextNum[A_Index]))
+		{
+			setIndex := index
+			if(index > 2)
+			{
+				setIndex := index - 2
+				len := ok.Length()
+				if(len > 3)
+					setIndex := setIndex + 1
+			}
+
+			logapp("답안 버튼 찾음-clickAnswer")
+			str := % "setIndex = " setIndex
+			logapp(str)
+			FindText().Click(ok[setIndex].x, ok[setIndex].y, "L")
+			break
+		}
+		else
+			logapp("답안 버튼 못찾음-clickAnswer")
+	}
+}
+
 endLecture()
 {
 	Loop
@@ -775,6 +958,111 @@ endLecture()
 	}
 }
 
+viewTest()
+{
+	sleep 2000
+	clickImg("네.png")
+	sleep 2000
+	clickImg("위사항을모두.png")
+	sleep 2000
+	Send, {Tab}
+	sleep 2000
+	Send, {Space}
+	sleep 2000
+	Send, {Space}
+	sleep 5000
+
+	FileRead, testVar, % dirTestPath "산업안전평가.txt"
+	StringReplace, newVar, testVar, `r`n, , All ; 엔터키 빼기
+
+	chechIndex := 1
+	Loop, Parse, newVar, $$
+	{
+		if(A_LoopField)
+		{
+			str := % "push 값 =" A_LoopField ", Index = " chechIndex " [main]"
+			logapp(str)
+
+			if(mod(chechIndex,2))
+			{
+				str := % "pushQuestion 값 =" A_LoopField "[main]"
+				logapp(str)
+				Random, val, 1, 4
+				lecQuestion.push(val)
+			}
+			else
+			{
+				str := % "pushAnswer 값 =" A_LoopField "[main]"
+				logapp(str)
+				Random, val, 1, 4
+				lecQuestion.push(val)
+				;lecAnswer.push(A_LoopField)
+			}
+			chechIndex ++
+		}
+	}
+
+	; 5문항
+	qTotal := 5
+	ansIndex := 1
+
+	Loop, % qTotal
+	{
+		sleep 2000
+
+		if(ok:=findQuestionText(A_Index))
+		{
+			if(ok:=compareQuestion(lecQuestion[A_Index], Clipboard, lecQuestion.Length()))
+			{
+				clickAnswer(ok, A_Index, answerList[ansIndex])
+				sleep 2000
+
+				if(A_Index == 2)
+					MouseClick WheelDown,,,10
+
+				ansIndex++
+				continue
+			}
+			else
+			{
+				str := % A_Index "번 문제 못찾음(신규문제)-main"
+				logapp(str)
+				break
+			}
+			sleep 500
+		}
+		else
+		{
+			str := % A_Index "번 문제번호 위치 못찾음-main"
+			endapp(str)
+		}
+	}
+
+	; 제출
+	clickImg("최종제출.png")
+	sleep 2000
+	clickImg("네.png")
+	sleep 5000
+
+}
+
+viewLec()
+{
+	waiting() ; 한시간 대기 3,600,000 tic
+
+	;sleep 5000
+
+	clickImg("인덱스.png")
+
+	sleep 10000
+
+	clickImg("outro.png")
+
+	sleep 15000
+
+	viewTest()
+
+}
 
 ; 산업안전, 경비직무 모듈
 watchLecture(lecture)
@@ -819,7 +1107,8 @@ watchLecture(lecture)
 			RegEx := RegExReplace(A_LoopField, "\D")
 
 			sleep 500
-			Send, % RegEx
+			Clipboard := A_LoopField
+			Send, ^{v}
 			Send, {Tab}
 			sleep 500
 
@@ -837,6 +1126,7 @@ watchLecture(lecture)
 			Click 68,437
 			sleep 1000
 			waitLogo()
+
 
 			; 로그인 확인
 			if (ok:=findImg("개인정보변경.png", false))
@@ -1145,7 +1435,9 @@ watchMustLecture(lecture)
 		;RegEx := RegExReplace(varfile, "\D")
 
 		sleep 500
-		Send, % varfile
+		Clipboard := varfile
+		Send, ^{v}
+		;Send, % varfile
 		;Send, % RegEx ; 아이디 앞에 k를 인식하지 못함
 		Send, {Tab}
 		sleep 500
@@ -1251,6 +1543,34 @@ watchMustLecture(lecture)
 		}
 		else if(ok:=findImgNoneMove("경비직무타이틀(선택).bmp", false))
 		{
+			continue
+		}
+		else if(ok:=findImgNoneMove("중대재해타이틀(선택).bmp", false))
+		{
+			sleep 3000
+			MouseClick WheelDown,,,10
+
+			if (ok:=findImg("이어보기.png", true))
+			{
+				; 이어보기 버튼 클릭
+				sleep 5000 ; 서버에 수강완료 데이터가 전송되는 시간 딜레이타임
+				clickImg("클릭.png")
+				sleep 2000
+				endLecture()
+			}
+			else if (ok:=findImg("수강하기.png", true))
+			{
+				; 수강하기 버튼 클릭
+				endLecture()
+			}
+			else
+			{
+				; 볼 수 있는 과정 없음. 스크롤 내림
+				logapp("볼 수 있는 과정 없음. 중대재해 평가 시작")
+
+			}
+
+
 			continue
 		}
 
